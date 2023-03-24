@@ -24,7 +24,7 @@ as its name implies,user-friendly and informative food mobile app that will prov
   To get more into our application, here is the link of our project's specifications : [Link](https://docs.google.com/document/d/1JPOoeVi4zhh0dRaGI5FAmBIi-SBxxCzN/edit?usp=sharing&ouid=105148018597387491435&rtpof=true&sd=true)
 
   ## Installation
-   You can clone this repository, or download via AppGallery.
+   You can clone this repository, or download via App Store.
 
   NOTE: The links mentioned above refers to the latest release. Since this app is in BETA phase, therefore the REST API changes a lot.
 
