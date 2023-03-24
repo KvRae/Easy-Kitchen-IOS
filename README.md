@@ -1,7 +1,7 @@
 
 
 <h2 align="center"><b>Easy Kitchen</b></h2>
-<h4 align="center">Food recipes app for Android.</h4>
+<h4 align="center">Food recipes app for IOS.</h4>
 
 
   ## Description
