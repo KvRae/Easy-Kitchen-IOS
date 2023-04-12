@@ -71,6 +71,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F40DDBD29E6322A00EA9E06 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */,
+				4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */,
+				4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */,
+				4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */,
+				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
+				4F93DD9F29DE480600E4E4DD /* IngredientTableViewCell.swift */,
+				4F9E046C29C24CF800AC56DC /* ViewController.swift */,
+				4FC894E829C8B1BC00946D4C /* LoginViewController.swift */,
+				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
+				4F93DD9B29DE31E100E4E4DD /* CartViewController.swift */,
+				4FC894E629C8B15900946D4C /* SignupViewController.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4F40DDBE29E6329100EA9E06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4F9E047629C24CF900AC56DC /* LaunchScreen.storyboard */,
+				4F9E046E29C24CF800AC56DC /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		4F74F5E729CDDD1600428EAC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,25 +129,14 @@
 		4F9E046729C24CF800AC56DC /* EasyKitchen */ = {
 			isa = PBXGroup;
 			children = (
+				4F40DDBE29E6329100EA9E06 /* Views */,
+				4F40DDBD29E6322A00EA9E06 /* ViewModels */,
 				4F74F5E729CDDD1600428EAC /* Models */,
 				4F9E046829C24CF800AC56DC /* AppDelegate.swift */,
 				4F9E046A29C24CF800AC56DC /* SceneDelegate.swift */,
-				4F9E046C29C24CF800AC56DC /* ViewController.swift */,
-				4F9E046E29C24CF800AC56DC /* Main.storyboard */,
-				4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */,
-				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
 				4F9E047429C24CF900AC56DC /* Assets.xcassets */,
-				4F9E047629C24CF900AC56DC /* LaunchScreen.storyboard */,
 				4F9E047929C24CF900AC56DC /* Info.plist */,
 				4F9E047129C24CF800AC56DC /* EasyKitchen.xcdatamodeld */,
-				4FC894E629C8B15900946D4C /* SignupViewController.swift */,
-				4FC894E829C8B1BC00946D4C /* LoginViewController.swift */,
-				4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */,
-				4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */,
-				4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */,
-				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
-				4F93DD9B29DE31E100E4E4DD /* CartViewController.swift */,
-				4F93DD9F29DE480600E4E4DD /* IngredientTableViewCell.swift */,
 			);
 			path = EasyKitchen;
 			sourceTree = "<group>";
@@ -367,7 +383,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = SD67XM79J2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyKitchen/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -395,7 +411,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = SD67XM79J2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyKitchen/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
