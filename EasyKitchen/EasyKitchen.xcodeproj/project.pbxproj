@@ -71,20 +71,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		422FA52F29E63CD500F9F89A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4FC894E629C8B15900946D4C /* SignupViewController.swift */,
+				4F93DD9B29DE31E100E4E4DD /* CartViewController.swift */,
+				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
+				4FC894E829C8B1BC00946D4C /* LoginViewController.swift */,
+				4F9E046C29C24CF800AC56DC /* ViewController.swift */,
+				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
+				4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		422FA53029E63CF100F9F89A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4F93DD9F29DE480600E4E4DD /* IngredientTableViewCell.swift */,
+				4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */,
+				4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */,
+				4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		4F40DDBD29E6322A00EA9E06 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */,
-				4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */,
-				4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */,
-				4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */,
-				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
-				4F93DD9F29DE480600E4E4DD /* IngredientTableViewCell.swift */,
-				4F9E046C29C24CF800AC56DC /* ViewController.swift */,
-				4FC894E829C8B1BC00946D4C /* LoginViewController.swift */,
-				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
-				4F93DD9B29DE31E100E4E4DD /* CartViewController.swift */,
-				4FC894E629C8B15900946D4C /* SignupViewController.swift */,
+				422FA53029E63CF100F9F89A /* Cells */,
+				422FA52F29E63CD500F9F89A /* Controllers */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
