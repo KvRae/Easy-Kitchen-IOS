@@ -22,10 +22,9 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == foodCollectionView ){
-             return min(5,foods.count)
+             return min(10,foods.count)
         } else if ( collectionView == categoryCollectionview) {
-             return min(5,categories.count)
-
+             return categories.count
         }
         return 0
     }
