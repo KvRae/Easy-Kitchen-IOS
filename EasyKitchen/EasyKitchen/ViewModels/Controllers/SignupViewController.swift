@@ -29,7 +29,7 @@ class SignupViewController: UIViewController {
                 showAlert(title: "Nom de l'utilisateur", message: "Le nom d'utilisateur ne doit pas être vide !")
                 return
             }
-            guard let phoneString = phoneTextField.text, let phone = Int(phoneString) else {
+            guard let phoneString = phoneTextField.text, let _ = Int(phoneString) else {
                 showAlert(title: "Numéro de téléphone", message: "Le Numéro de téléphone ne doit pas être vide !")
                 return
             }

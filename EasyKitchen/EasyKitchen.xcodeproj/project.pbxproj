@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		427F6CA329E6988400F89200 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427F6CA229E6988400F89200 /* User.swift */; };
 		4F225A1229DB845700C971D2 /* Recette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F225A1129DB845700C971D2 /* Recette.swift */; };
 		4F26A17929D2582C00E1FF27 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */; };
 		4F74F5E929CDDEE600428EAC /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F74F5E829CDDEE600428EAC /* Food.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		427F6CA229E6988400F89200 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4F225A1129DB845700C971D2 /* Recette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recette.swift; sourceTree = "<group>"; };
 		4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F74F5E829CDDEE600428EAC /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				4F225A1129DB845700C971D2 /* Recette.swift */,
 				4F93335329DDD94500B697BB /* Area.swift */,
 				4F93DD9D29DE45CE00E4E4DD /* Ingredient.swift */,
+				427F6CA229E6988400F89200 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				4F9E046D29C24CF800AC56DC /* ViewController.swift in Sources */,
 				4F93334E29DDD2F500B697BB /* AreaCollectionViewCell.swift in Sources */,
 				4FC894E729C8B15900946D4C /* SignupViewController.swift in Sources */,
+				427F6CA329E6988400F89200 /* User.swift in Sources */,
 				4F225A1229DB845700C971D2 /* Recette.swift in Sources */,
 				4F74F5E929CDDEE600428EAC /* Food.swift in Sources */,
 				4F93335229DDD45E00B697BB /* FoodViewController.swift in Sources */,
