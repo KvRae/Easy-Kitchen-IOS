@@ -24,7 +24,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         if (collectionView == foodCollectionView ){
              return min(5,foods.count)
         } else if ( collectionView == categoryCollectionview) {
-             return min(5,categories.count)
+             return categories.count
 
         }
         return 0

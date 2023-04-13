@@ -17,7 +17,7 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet var foodCollectionView: UICollectionView!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return areas.count
+        
         
         if (collectionView == areaCollectionView ){
              return areas.count
@@ -25,6 +25,7 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
              return foods.count
 
         }
+        return areas.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -137,15 +138,5 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
 
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
