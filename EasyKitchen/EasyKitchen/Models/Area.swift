@@ -9,5 +9,5 @@ import Foundation
 
 struct Area:Decodable{
     let _id:String
-    let strArea:String    
+    let strArea:String
 }
