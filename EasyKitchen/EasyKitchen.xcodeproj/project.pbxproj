@@ -33,6 +33,10 @@
 		4FA158F229E74FC9006775F2 /* SelectedIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */; };
 		4FC894E729C8B15900946D4C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC894E629C8B15900946D4C /* SignupViewController.swift */; };
 		4FC894E929C8B1BC00946D4C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC894E829C8B1BC00946D4C /* LoginViewController.swift */; };
+		4FD6DDF629EA904B0087E368 /* PasswordEmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF529EA904B0087E368 /* PasswordEmailVerificationViewController.swift */; };
+		4FD6DDF829EA907F0087E368 /* PasswordVerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF729EA907F0087E368 /* PasswordVerificationCodeViewController.swift */; };
+		4FD6DDFA29EA90AC0087E368 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF929EA90AC0087E368 /* PasswordResetViewController.swift */; };
+		4FD6DDFD29EAA2600087E368 /* DataSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDFC29EAA2600087E368 /* DataSingleton.swift */; };
 		4FD93ADE29D6321400D63956 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD93ADD29D6321400D63956 /* Category.swift */; };
 		4FDC1FCB29CB48910091A6A0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */; };
 		4FDC1FD129CB762B0091A6A0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */; };
@@ -66,6 +70,10 @@
 		4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedIngredientsViewController.swift; sourceTree = "<group>"; };
 		4FC894E629C8B15900946D4C /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		4FC894E829C8B1BC00946D4C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4FD6DDF529EA904B0087E368 /* PasswordEmailVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEmailVerificationViewController.swift; sourceTree = "<group>"; };
+		4FD6DDF729EA907F0087E368 /* PasswordVerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVerificationCodeViewController.swift; sourceTree = "<group>"; };
+		4FD6DDF929EA90AC0087E368 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
+		4FD6DDFC29EAA2600087E368 /* DataSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSingleton.swift; sourceTree = "<group>"; };
 		4FD93ADD29D6321400D63956 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -115,17 +123,12 @@
 		4F4BF30529E7FD610094B0CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */,
-				4F9E046C29C24CF800AC56DC /* ViewController.swift */,
-				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
-				4F93DD9B29DE31E100E4E4DD /* CartViewController.swift */,
-				4FC894E829C8B1BC00946D4C /* LoginViewController.swift */,
-				4FC894E629C8B15900946D4C /* SignupViewController.swift */,
-				4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */,
-				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
-				4F1C808E29E986B100F31669 /* EditProfileViewController.swift */,
-				4F1C809229E9A77400F31669 /* MatchingFoodsViewController.swift */,
-				4F1772B529EA153100403AFC /* EditPasswordViewController.swift */,
+				4FD6DDEF29EA8E970087E368 /* Auth */,
+				4FD6DDF329EA8F3C0087E368 /* Food */,
+				4FD6DDF129EA8EEE0087E368 /* Ingredient */,
+				4FD6DDF229EA8F0E0087E368 /* Home */,
+				4FD6DDF429EA8F8E0087E368 /* TabBar */,
+				4FD6DDF029EA8EBB0087E368 /* User */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -199,12 +202,77 @@
 				4F74F5E729CDDD1600428EAC /* Models */,
 				4F40DDBE29E6329100EA9E06 /* Views */,
 				4F40DDBD29E6322A00EA9E06 /* ViewModels */,
+				4FD6DDFB29EAA1EF0087E368 /* Utils */,
 				4F4BF30829E7FDD80094B0CB /* WebService */,
 				4F9E047429C24CF900AC56DC /* Assets.xcassets */,
 				4F9E047929C24CF900AC56DC /* Info.plist */,
 				4F9E047129C24CF800AC56DC /* EasyKitchen.xcdatamodeld */,
 			);
 			path = EasyKitchen;
+			sourceTree = "<group>";
+		};
+		4FD6DDEF29EA8E970087E368 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				4FC894E629C8B15900946D4C /* SignupViewController.swift */,
+				4FC894E829C8B1BC00946D4C /* LoginViewController.swift */,
+				4FD6DDF529EA904B0087E368 /* PasswordEmailVerificationViewController.swift */,
+				4FD6DDF729EA907F0087E368 /* PasswordVerificationCodeViewController.swift */,
+				4FD6DDF929EA90AC0087E368 /* PasswordResetViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		4FD6DDF029EA8EBB0087E368 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				4F1772B529EA153100403AFC /* EditPasswordViewController.swift */,
+				4F1C808E29E986B100F31669 /* EditProfileViewController.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		4FD6DDF129EA8EEE0087E368 /* Ingredient */ = {
+			isa = PBXGroup;
+			children = (
+				4F1C809229E9A77400F31669 /* MatchingFoodsViewController.swift */,
+				4F93DD9B29DE31E100E4E4DD /* CartViewController.swift */,
+				4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */,
+			);
+			path = Ingredient;
+			sourceTree = "<group>";
+		};
+		4FD6DDF229EA8F0E0087E368 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		4FD6DDF329EA8F3C0087E368 /* Food */ = {
+			isa = PBXGroup;
+			children = (
+				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
+			);
+			path = Food;
+			sourceTree = "<group>";
+		};
+		4FD6DDF429EA8F8E0087E368 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4F9E046C29C24CF800AC56DC /* ViewController.swift */,
+				4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		4FD6DDFB29EAA1EF0087E368 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4FD6DDFC29EAA2600087E368 /* DataSingleton.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,7 +323,7 @@
 			);
 			mainGroup = 4F9E045C29C24CF800AC56DC;
 			packageReferences = (
-				4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 4F9E046629C24CF800AC56DC /* Products */;
 			projectDirPath = "";
@@ -289,13 +357,16 @@
 				4F74F5EB29CDF6B300428EAC /* FoodCollectionViewCell.swift in Sources */,
 				4F1772B829EA23F500403AFC /* User.swift in Sources */,
 				4FC894E929C8B1BC00946D4C /* LoginViewController.swift in Sources */,
+				4FD6DDFD29EAA2600087E368 /* DataSingleton.swift in Sources */,
 				4F93DD9E29DE45CE00E4E4DD /* Ingredient.swift in Sources */,
 				4FDC1FD129CB762B0091A6A0 /* TabBarController.swift in Sources */,
 				4F4BF30A29E7FDEE0094B0CB /* ApiService.swift in Sources */,
 				4F9E047329C24CF800AC56DC /* EasyKitchen.xcdatamodeld in Sources */,
+				4FD6DDF629EA904B0087E368 /* PasswordEmailVerificationViewController.swift in Sources */,
 				4F9E046D29C24CF800AC56DC /* ViewController.swift in Sources */,
 				4F93334E29DDD2F500B697BB /* AreaCollectionViewCell.swift in Sources */,
 				4FC894E729C8B15900946D4C /* SignupViewController.swift in Sources */,
+				4FD6DDF829EA907F0087E368 /* PasswordVerificationCodeViewController.swift in Sources */,
 				4F225A1229DB845700C971D2 /* Recette.swift in Sources */,
 				4F74F5E929CDDEE600428EAC /* Food.swift in Sources */,
 				4F93335229DDD45E00B697BB /* FoodViewController.swift in Sources */,
@@ -305,6 +376,7 @@
 				4FDC1FCB29CB48910091A6A0 /* HomeViewController.swift in Sources */,
 				4F93DD9C29DE31E100E4E4DD /* CartViewController.swift in Sources */,
 				4F9E046B29C24CF800AC56DC /* SceneDelegate.swift in Sources */,
+				4FD6DDFA29EA90AC0087E368 /* PasswordResetViewController.swift in Sources */,
 				4F93335429DDD94500B697BB /* Area.swift in Sources */,
 				4F1C809329E9A77400F31669 /* MatchingFoodsViewController.swift in Sources */,
 				4F1772B629EA153100403AFC /* EditPasswordViewController.swift in Sources */,
@@ -528,7 +600,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -541,7 +613,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4F904B5929CFBD570075B590 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = 4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -20,7 +20,9 @@ class EditPasswordViewController: UIViewController {
     // SUBMIT BUTTON
     
     @IBAction func SubmitButton(_ sender: UIButton) {
-        if (confirmPassword() && fieldsNotEmpty()){
+        if confirmPassword(), fieldsNotEmpty(){
+            showAlert(title: "Error", msg: "invald passwords")
+            
             
             //TODO get UserID from defaults
             
@@ -45,6 +47,21 @@ class EditPasswordViewController: UIViewController {
         {return true}
         
         return false
+    }
+    
+    func showAlert(title: String ,msg : String) {
+        
+        let dialogMessage = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+         })
+        
+        //Add OK button to a dialog message
+        dialogMessage.addAction(ok)
+        // Present Alert to
+        self.present(dialogMessage, animated: true, completion: nil)
     }
     
     

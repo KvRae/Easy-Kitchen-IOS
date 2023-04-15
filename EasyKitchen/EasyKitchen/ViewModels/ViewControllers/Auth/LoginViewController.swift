@@ -70,7 +70,7 @@ class LoginViewController: UIViewController {
                            let user = json["user"] as? [String: Any],
                            let username = user["username"] as? String {
                             defaults.set(json["token"], forKey: "token")
-                            defaults.set(json[""], forKey: "user")
+                            defaults.set(json["user"], forKey: "user")
                             DispatchQueue.main.async {
                                 self.showAlertNavigate(title: "Success", message: "Welcome \(username)")
                             }
