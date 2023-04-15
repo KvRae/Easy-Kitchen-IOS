@@ -15,7 +15,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     @IBOutlet weak var loginButton: UIButton!
     
     
@@ -71,6 +70,7 @@ class LoginViewController: UIViewController {
                            let user = json["user"] as? [String: Any],
                            let username = user["username"] as? String {
                             defaults.set(json["token"], forKey: "token")
+                            defaults.set(json[""], forKey: "user")
                             DispatchQueue.main.async {
                                 self.showAlertNavigate(title: "Success", message: "Welcome \(username)")
                             }
@@ -83,22 +83,7 @@ class LoginViewController: UIViewController {
                     }
 
 
-/*                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print(json)
 
-                        if let jsonDictionary = json as? [String: Any], let username = jsonDictionary["user"] as? String {
-                            print(jsonDictionary)
-                            print(username)
-                            DispatchQueue.main.async {
-                                self.showAlertNavigate(title: "Success", message: "Welcome \(username)")
-                            }
-                        } else {
-                            print("Invalid JSON format")
-                        }
-                    } catch {
-                        print("Error parsing JSON: \(error.localizedDescription)")
-                    }*/
                 }
 
                 // Start the data task
@@ -152,14 +137,35 @@ class LoginViewController: UIViewController {
             topViewController.present(alert, animated: true, completion: nil)
         }
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+                        print(json)
+
+                        if let jsonDictionary = json as? [String: Any], let username = jsonDictionary["user"] as? String {
+                            print(jsonDictionary)
+                            print(username)
+                            DispatchQueue.main.async {
+                                self.showAlertNavigate(title: "Success", message: "Welcome \(username)")
+                            }
+                        } else {
+                            print("Invalid JSON format")
+                        }
+                    } catch {
+                        print("Error parsing JSON: \(error.localizedDescription)")
+                    }*/

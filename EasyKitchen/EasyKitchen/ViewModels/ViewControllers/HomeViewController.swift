@@ -24,41 +24,13 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         if (collectionView == foodCollectionView ){
              return min(5,foods.count)
         } else if ( collectionView == categoryCollectionview) {
-             return min(5,categories.count)
+             return categories.count
 
         }
         return 0
     }
     
- /*   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if (collectionView == foodCollectionView ){
-            
-            let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"foodCell",for:indexPath) as! FoodCollectionViewCell
-            
-            if indexPath.row < 5 {
-                cell.foodImage.kf.setImage(with: foodImages[indexPath.row])
-                cell.foodImage.layer.cornerRadius = 50.0
-                cell.foodImage.contentMode = .scaleAspectFill
-                cell.foodImage.clipsToBounds = true
-            }
-            return cell
-            
-        } else if ( collectionView == categoryCollectionview) {
-            let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"categoryCell",for:indexPath) as! CategoryCollectionViewCell
-            
-            if indexPath.row < 5 {
-                cell.categoryImage.kf.setImage(with: categoriesImages[indexPath.row])
-                cell.categoryImage.layer.cornerRadius = 20.0
-                cell.categoryImage.contentMode = .scaleAspectFill
-                cell.categoryImage.clipsToBounds = true
-            }
-            return cell
 
-        }
-        return UICollectionViewCell()
-
-    }*/
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
@@ -66,30 +38,29 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             
             let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"foodCell",for:indexPath) as! FoodCollectionViewCell
             
-            if indexPath.row < 5 && categoriesImages.count > indexPath.row {
                 let food = foods[indexPath.row]
-                cell.foodImage.kf.setImage(with: foodImages[indexPath.row])
+                cell.foodImage.kf.setImage(with: URL(string: food.strMealThumb))
                 cell.foodTitle.text = food.strMeal
                 cell.foodImage.layer.cornerRadius = 20.0
                 cell.foodImage.contentMode = .scaleAspectFill
                 cell.foodImage.clipsToBounds = true
                 cell.blackScreen.layer.cornerRadius = 20.0
-            }
+            
             return cell
             
         } else if ( collectionView == categoryCollectionview) {
             let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"categoryCell",for:indexPath) as! CategoryCollectionViewCell
             
-            if indexPath.row < 5 && categoriesImages.count > indexPath.row {
                 let category = categories[indexPath.row]
-                cell.categoryImage.kf.setImage(with: categoriesImages[indexPath.row])
+                cell.categoryImage.kf.setImage(with: URL(string: category.strCategoryThumb))
+
                 cell.categoryLabel.text = category.strCategory
                 cell.categoryImage.layer.cornerRadius = 20.0
                 cell.categoryImage.contentMode = .scaleAspectFill
                 cell.categoryImage.clipsToBounds = true
                 cell.categoryBlackScreen.layer.cornerRadius = 20.0
                 
-            }
+            
             return cell
 
         }
@@ -177,7 +148,6 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             do {
                 let decoder = JSONDecoder()
                 self.categories = try decoder.decode([Category].self, from: data)
-                self.categoriesImages = self.categories.map({ URL(string: $0.strCategoryThumb)! })
                 DispatchQueue.main.async {
                     self.categoryCollectionview.reloadData()
                 }
@@ -218,3 +188,35 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     */
 
 }
+
+
+
+/*   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
+       if (collectionView == foodCollectionView ){
+           
+           let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"foodCell",for:indexPath) as! FoodCollectionViewCell
+           
+           if indexPath.row < 5 {
+               cell.foodImage.kf.setImage(with: foodImages[indexPath.row])
+               cell.foodImage.layer.cornerRadius = 50.0
+               cell.foodImage.contentMode = .scaleAspectFill
+               cell.foodImage.clipsToBounds = true
+           }
+           return cell
+           
+       } else if ( collectionView == categoryCollectionview) {
+           let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"categoryCell",for:indexPath) as! CategoryCollectionViewCell
+           
+           if indexPath.row < 5 {
+               cell.categoryImage.kf.setImage(with: categoriesImages[indexPath.row])
+               cell.categoryImage.layer.cornerRadius = 20.0
+               cell.categoryImage.contentMode = .scaleAspectFill
+               cell.categoryImage.clipsToBounds = true
+           }
+           return cell
+
+       }
+       return UICollectionViewCell()
+
+   }*/

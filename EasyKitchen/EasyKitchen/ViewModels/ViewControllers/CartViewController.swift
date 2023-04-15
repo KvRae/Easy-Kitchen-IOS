@@ -14,6 +14,8 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var selectedIngredients = [Ingredient]()
     var removedIngredients = [Ingredient]()
 
+    let floatingButton = UIButton(type: .system)
+
     let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet var containerNavigationItem: UINavigationItem!
@@ -62,6 +64,9 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //        selectedIngredientsButton.setTitle("(\(selectedIngredients.count))", for: .normal)
 
             badgeLabel.text = "\(selectedIngredients.count)"
+        if (selectedIngredients.count != 0){
+            floatingButton.isEnabled = true
+        }
 
 
     }
@@ -89,7 +94,9 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         selectedIngredients = selectedIngredients.filter { !removedIngredients.contains($0) }
         badgeLabel.text = "\(selectedIngredients.count)"
-
+        if (selectedIngredients.count == 0){
+            floatingButton.isEnabled = false
+        }
         print (selectedIngredients)
     }
     
@@ -124,6 +131,35 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
 
         }
+        print("the height of tabbar is \(tabBarController!.tabBar.frame.height)")
+        
+
+        // Set the frame and position of the button
+        floatingButton.frame = CGRect(x: view.bounds.width - 68, y: view.bounds.height   - tabBarController!.tabBar.frame.height - 60 , width: 48, height: 48)
+
+        // Set the button's appearance
+        floatingButton.backgroundColor = UIColor(named: "orangeKitchen")
+        floatingButton.layer.cornerRadius = 24
+        floatingButton.layer.shadowColor = UIColor.black.cgColor
+        floatingButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        floatingButton.layer.shadowOpacity = 0.5
+        floatingButton.layer.shadowRadius = 2
+        
+        if (selectedIngredients.count == 0){
+            floatingButton.isEnabled = false
+        }
+        // Set the button's image or title
+        let image = UIImage(systemName: "magnifyingglass")?
+            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 14, weight: .regular))
+            .withRenderingMode(.alwaysTemplate)
+        floatingButton.setImage(image, for: .normal)
+        floatingButton.tintColor = .white
+        
+        floatingButton.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
+
+        // Add the button to the view hierarchy
+        view.addSubview(floatingButton)
+
         
         // Make the GET API request
         guard let url = URL(string: "http://127.0.0.1:3000/api/ingredients") else { return }
@@ -150,6 +186,13 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     }
 
+    @objc func didTapFloatingButton() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "matchingFoodsVC") as! MatchingFoodsViewController
+        destinationVC.selectedIngredients=selectedIngredients
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
     // In the source view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "selectedIngredientsSegue" {
