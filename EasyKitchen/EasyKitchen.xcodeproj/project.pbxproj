@@ -255,7 +255,7 @@
 			);
 			mainGroup = 4F9E045C29C24CF800AC56DC;
 			packageReferences = (
-				4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
 			);
 			productRefGroup = 4F9E046629C24CF800AC56DC /* Products */;
 			projectDirPath = "";
@@ -528,7 +528,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -541,7 +541,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4F904B5929CFBD570075B590 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
