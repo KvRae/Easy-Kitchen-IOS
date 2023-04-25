@@ -9,6 +9,8 @@ import UIKit
 
 class PasswordVerificationCodeViewController: UIViewController {
     
+    let apiService = ApiService()
+    
 
     @IBOutlet weak var verificationCodeInput: UITextField!
     
@@ -21,7 +23,8 @@ class PasswordVerificationCodeViewController: UIViewController {
                 showAlert(title: "Error", msg: "fill te code input")
             }else{
                 if isValidCode(code: code) {
-                    if let viewController = storyboard.instantiateViewController(withIdentifier: "PasswordResetVC") as? PasswordResetViewController {self.navigationController?.pushViewController(viewController, animated: true)}
+                    if let viewController = storyboard.instantiateViewController(withIdentifier: "PasswordResetVC") as? PasswordResetViewController {
+                        self.navigationController?.pushViewController(viewController, animated: true)}
                 }else{
                     showAlert(title: "Error", msg: "invalid code")
                 }
@@ -34,7 +37,7 @@ class PasswordVerificationCodeViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    func isValidCode(code : String)-> Bool {return code == "555555"}
+    func isValidCode(code : String)-> Bool {return code == "91547"}
     
     
     func showAlert(title: String ,msg : String) {
@@ -51,10 +54,4 @@ class PasswordVerificationCodeViewController: UIViewController {
         // Present Alert to
         self.present(dialogMessage, animated: true, completion: nil)
     }
-    
-    
-    
-    
-
-
 }

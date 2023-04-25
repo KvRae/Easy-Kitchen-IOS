@@ -15,5 +15,5 @@ struct User:Codable
     let email:String
     let password:String
     let phone:String
-
+    
 }

@@ -11,8 +11,10 @@ class MatchingFoodsViewController: UIViewController,UICollectionViewDelegate,UIC
 
     
     var selectedIngredients = [Ingredient]()
-    var matchingFoods = [Food]() // This should be declared at the class level, so it can be accessed by other functions
+    var matchingFoods = [Food]()
+    // This should be declared at the class level, so it can be accessed by other functions
 
+    @IBOutlet weak var matchingFoodsNavigationItem: UINavigationItem!
     @IBOutlet weak var foodCollectionView: UICollectionView!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -36,7 +38,7 @@ class MatchingFoodsViewController: UIViewController,UICollectionViewDelegate,UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+
         
         guard let urlFood = URL(string: "http://127.0.0.1:3000/api/food") else { return }
         let sessionFood = URLSession.shared
@@ -60,8 +62,7 @@ class MatchingFoodsViewController: UIViewController,UICollectionViewDelegate,UIC
                 let decoder = JSONDecoder()
                 
                 self.matchingFoods = try decoder.decode([Food].self, from: data)
-                // Inside your data task, after decoding the JSON data
-                // Filter the matchingFoods array to include only the foods that have at least one matching ingredient
+
                 let matchingIngredients = self.selectedIngredients.map { $0.strIngredient }
                 self.matchingFoods = self.matchingFoods.filter { food in
                     let ingredients = [
@@ -139,6 +140,18 @@ class MatchingFoodsViewController: UIViewController,UICollectionViewDelegate,UIC
                 }
                 
                 DispatchQueue.main.async {
+                    
+                    let foodsCount = UILabel()
+                    // Create a label
+                    foodsCount.font = UIFont.systemFont(ofSize: 15)
+                    foodsCount.text = "\(self.matchingFoods.count) Recettes trouvées"
+                    foodsCount.textColor = UIColor.darkGray
+
+                    // Create a bar button item with the label as its custom view
+                    let rightBarButtonItem = UIBarButtonItem(customView: foodsCount)
+
+                    // Assign the bar button item to the navigation item's rightBarButtonItem property
+                    self.matchingFoodsNavigationItem.rightBarButtonItem = rightBarButtonItem
                     self.foodCollectionView.reloadData()
                 }
 
@@ -152,17 +165,7 @@ class MatchingFoodsViewController: UIViewController,UICollectionViewDelegate,UIC
 
         taskFood.resume()
         
+
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

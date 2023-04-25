@@ -17,7 +17,7 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet var foodCollectionView: UICollectionView!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return areas.count
+        
         
         if (collectionView == areaCollectionView ){
              return areas.count
@@ -25,6 +25,7 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
              return foods.count
 
         }
+        return areas.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

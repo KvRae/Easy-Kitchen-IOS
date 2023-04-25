@@ -9,6 +9,8 @@ import UIKit
 
 class PasswordEmailVerificationViewController: UIViewController {
     
+    let apiService = ApiService()
+    
 
     @IBOutlet weak var EmailInput: UITextField!
     
@@ -20,6 +22,7 @@ class PasswordEmailVerificationViewController: UIViewController {
             }else{
                 if isValidEmail(email: email) {
                     DataSignleton.shared.email = email
+                    apiService.forgotPassword(email: email)
                     if let viewController = storyboard.instantiateViewController(withIdentifier: "PasswordVerificationCodeVC") as? PasswordVerificationCodeViewController {self.navigationController?.pushViewController(viewController, animated: true)}
                 }else{
                     showAlert(title: "Error", msg: "invalid email")

@@ -9,6 +9,7 @@ import UIKit
 
 class PasswordResetViewController: UIViewController {
     
+    let apiService = ApiService()
     
     @IBOutlet weak var passwordInput: UITextField!
     
@@ -22,6 +23,7 @@ class PasswordResetViewController: UIViewController {
                 showAlert(title: "Error", msg: "fill the password inputs")
             }else{
                 if isValidPassword(password: password), password==passworConfirm{
+                    apiService.resetPassword(email: DataSignleton.shared.email!, password: passwordInput.text!)
                     if let viewController = storyboard.instantiateViewController(withIdentifier: "LoginVC") as? LoginViewController {self.navigationController?.pushViewController(viewController, animated: true)}
                 }else{
                     showAlert(title: "Error", msg: "your password is shorter than 6 digits or not same as confirm one")
