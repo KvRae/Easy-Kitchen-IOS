@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F1772B629EA153100403AFC /* EditPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1772B529EA153100403AFC /* EditPasswordViewController.swift */; };
 		4F1772B829EA23F500403AFC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1772B729EA23F500403AFC /* User.swift */; };
+		4F18B4AA29F877980068133C /* FoodDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F18B4A929F877980068133C /* FoodDetailViewController.swift */; };
 		4F1C808F29E986B100F31669 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C808E29E986B100F31669 /* EditProfileViewController.swift */; };
 		4F1C809329E9A77400F31669 /* MatchingFoodsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C809229E9A77400F31669 /* MatchingFoodsViewController.swift */; };
 		4F225A1229DB845700C971D2 /* Recette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F225A1129DB845700C971D2 /* Recette.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		4F1772B529EA153100403AFC /* EditPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasswordViewController.swift; sourceTree = "<group>"; };
 		4F1772B729EA23F500403AFC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4F18B4A929F877980068133C /* FoodDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailViewController.swift; sourceTree = "<group>"; };
 		4F1C808E29E986B100F31669 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4F1C809229E9A77400F31669 /* MatchingFoodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingFoodsViewController.swift; sourceTree = "<group>"; };
 		4F225A1129DB845700C971D2 /* Recette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recette.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
+				4F18B4A929F877980068133C /* FoodDetailViewController.swift */,
 			);
 			path = Food;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				4F1C808F29E986B100F31669 /* EditProfileViewController.swift in Sources */,
 				4FA158F229E74FC9006775F2 /* SelectedIngredientsViewController.swift in Sources */,
 				4F74F5EB29CDF6B300428EAC /* FoodCollectionViewCell.swift in Sources */,
+				4F18B4AA29F877980068133C /* FoodDetailViewController.swift in Sources */,
 				4F1772B829EA23F500403AFC /* User.swift in Sources */,
 				4FC894E929C8B1BC00946D4C /* LoginViewController.swift in Sources */,
 				4FD6DDFD29EAA2600087E368 /* DataSingleton.swift in Sources */,

@@ -48,6 +48,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             
             return cell
             
+            
         } else if ( collectionView == categoryCollectionview) {
             let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"categoryCell",for:indexPath) as! CategoryCollectionViewCell
             
@@ -66,6 +67,26 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
         return UICollectionViewCell()
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+        if(collectionView == foodCollectionView){
+            
+            
+            // Get the product that was selected
+            let foodDetail = self.foods[indexPath.item]
+            print(type(of: foodDetail))
+            // Create a new view controller to display the product details
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let foodDetailViewController = storyboard.instantiateViewController(withIdentifier: "foodDetailVC") as! FoodDetailViewController
+            foodDetailViewController.foodDetail = foodDetail
+            
+            // Push the detail view controller onto the navigation stack
+            navigationController?.pushViewController(foodDetailViewController, animated: true)
+            
+        }
+   
     }
     
     let defaults = UserDefaults.standard
@@ -177,15 +198,6 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
