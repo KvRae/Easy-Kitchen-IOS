@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     
+    @IBOutlet weak var logoImageView: UIImageView!
     
     @IBAction func loginButtonTapped(_ sender: Any) {
         
@@ -97,6 +98,9 @@ class LoginViewController: UIViewController {
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey: "token") as? String
         print(token)
+        if self.traitCollection.userInterfaceStyle == .dark {
+            logoImageView.image = UIImage(named: "darkModeLogo")
+        }
 
     }
     

@@ -35,6 +35,23 @@ class MatchingFoodsViewController: UIViewController,UICollectionViewDelegate,UIC
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            
+            // Get the product that was selected
+            let foodDetail = self.matchingFoods[indexPath.item]
+            print(type(of: foodDetail))
+            // Create a new view controller to display the product details
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let foodDetailViewController = storyboard.instantiateViewController(withIdentifier: "foodDetailVC") as! FoodDetailViewController
+            foodDetailViewController.foodDetail = foodDetail
+            
+            // Push the detail view controller onto the navigation stack
+            navigationController?.pushViewController(foodDetailViewController, animated: true)
+            
+   
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

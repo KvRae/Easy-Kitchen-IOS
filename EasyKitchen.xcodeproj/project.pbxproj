@@ -17,6 +17,10 @@
 		4F4BF30A29E7FDEE0094B0CB /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4BF30929E7FDEE0094B0CB /* ApiService.swift */; };
 		4F74F5E929CDDEE600428EAC /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F74F5E829CDDEE600428EAC /* Food.swift */; };
 		4F74F5EB29CDF6B300428EAC /* FoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */; };
+		4F8700A52A013F2E00443A89 /* RecetteSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8700A42A013F2E00443A89 /* RecetteSwiftUIView.swift */; };
+		4F8700A72A0145FD00443A89 /* IngredientsMeasuresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8700A62A0145FD00443A89 /* IngredientsMeasuresTableViewCell.swift */; };
+		4F8700A92A0145FD00443A89 /* FoodByCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8700A82A0145FD00443A89 /* FoodByCategoryViewController.swift */; };
+		4F8700AB2A0145FD00443A89 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8700AA2A0145FD00443A89 /* SettingsViewController.swift */; };
 		4F904B5A29CFBD570075B590 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4F904B5929CFBD570075B590 /* Kingfisher */; };
 		4F93334E29DDD2F500B697BB /* AreaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */; };
 		4F93335229DDD45E00B697BB /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F93335129DDD45E00B697BB /* FoodViewController.swift */; };
@@ -39,9 +43,15 @@
 		4FD6DDFA29EA90AC0087E368 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF929EA90AC0087E368 /* PasswordResetViewController.swift */; };
 		4FD6DDFD29EAA2600087E368 /* DataSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDFC29EAA2600087E368 /* DataSingleton.swift */; };
 		4FD6DE0029EAFD660087E368 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = 4FD6DDFF29EAFD660087E368 /* JWTDecode */; };
+		4FD7F5762A053B5E0056FB4F /* FaceIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7F5752A053B5E0056FB4F /* FaceIdViewController.swift */; };
 		4FD93ADE29D6321400D63956 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD93ADD29D6321400D63956 /* Category.swift */; };
 		4FDC1FCB29CB48910091A6A0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */; };
 		4FDC1FD129CB762B0091A6A0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */; };
+		4FE5904C2A069C19003F6C21 /* uploadImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE5904B2A069C19003F6C21 /* uploadImageViewController.swift */; };
+		4FFC4B6B2A07EA9A00D68BC7 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC4B6A2A07EA9A00D68BC7 /* DrawerViewController.swift */; };
+		4FFC4B6D2A07EDC500D68BC7 /* RecetteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC4B6C2A07EDC500D68BC7 /* RecetteViewController.swift */; };
+		4FFC4B6F2A07EE2500D68BC7 /* RecetteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC4B6E2A07EE2500D68BC7 /* RecetteCollectionViewCell.swift */; };
+		4FFC4B722A081D7E00D68BC7 /* RecetteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FFC4B712A081D7E00D68BC7 /* RecetteDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +65,10 @@
 		4F4BF30929E7FDEE0094B0CB /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		4F74F5E829CDDEE600428EAC /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewCell.swift; sourceTree = "<group>"; };
+		4F8700A42A013F2E00443A89 /* RecetteSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteSwiftUIView.swift; sourceTree = "<group>"; };
+		4F8700A62A0145FD00443A89 /* IngredientsMeasuresTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsMeasuresTableViewCell.swift; sourceTree = "<group>"; };
+		4F8700A82A0145FD00443A89 /* FoodByCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodByCategoryViewController.swift; sourceTree = "<group>"; };
+		4F8700AA2A0145FD00443A89 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F93335129DDD45E00B697BB /* FoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
 		4F93335329DDD94500B697BB /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
@@ -77,9 +91,15 @@
 		4FD6DDF729EA907F0087E368 /* PasswordVerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVerificationCodeViewController.swift; sourceTree = "<group>"; };
 		4FD6DDF929EA90AC0087E368 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		4FD6DDFC29EAA2600087E368 /* DataSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSingleton.swift; sourceTree = "<group>"; };
+		4FD7F5752A053B5E0056FB4F /* FaceIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIdViewController.swift; sourceTree = "<group>"; };
 		4FD93ADD29D6321400D63956 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4FDC1FD029CB762B0091A6A0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		4FE5904B2A069C19003F6C21 /* uploadImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = uploadImageViewController.swift; sourceTree = "<group>"; };
+		4FFC4B6A2A07EA9A00D68BC7 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		4FFC4B6C2A07EDC500D68BC7 /* RecetteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteViewController.swift; sourceTree = "<group>"; };
+		4FFC4B6E2A07EE2500D68BC7 /* RecetteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteCollectionViewCell.swift; sourceTree = "<group>"; };
+		4FFC4B712A081D7E00D68BC7 /* RecetteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +140,8 @@
 				4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */,
 				4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */,
 				4F93334D29DDD2F500B697BB /* AreaCollectionViewCell.swift */,
+				4F8700A62A0145FD00443A89 /* IngredientsMeasuresTableViewCell.swift */,
+				4FFC4B6E2A07EE2500D68BC7 /* RecetteCollectionViewCell.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -127,6 +149,7 @@
 		4F4BF30529E7FD610094B0CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4FFC4B702A081D5E00D68BC7 /* Recette */,
 				4FD6DDEF29EA8E970087E368 /* Auth */,
 				4FD6DDF329EA8F3C0087E368 /* Food */,
 				4FD6DDF129EA8EEE0087E368 /* Ingredient */,
@@ -149,6 +172,7 @@
 		4F4BF30729E7FDB20094B0CB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				4F8700A42A013F2E00443A89 /* RecetteSwiftUIView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -231,7 +255,10 @@
 			isa = PBXGroup;
 			children = (
 				4F1772B529EA153100403AFC /* EditPasswordViewController.swift */,
+				4F8700AA2A0145FD00443A89 /* SettingsViewController.swift */,
+				4FD7F5752A053B5E0056FB4F /* FaceIdViewController.swift */,
 				4F1C808E29E986B100F31669 /* EditProfileViewController.swift */,
+				4FE5904B2A069C19003F6C21 /* uploadImageViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -250,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
+				4FFC4B6A2A07EA9A00D68BC7 /* DrawerViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -257,6 +285,7 @@
 		4FD6DDF329EA8F3C0087E368 /* Food */ = {
 			isa = PBXGroup;
 			children = (
+				4F8700A82A0145FD00443A89 /* FoodByCategoryViewController.swift */,
 				4F93335129DDD45E00B697BB /* FoodViewController.swift */,
 				4F18B4A929F877980068133C /* FoodDetailViewController.swift */,
 			);
@@ -278,6 +307,15 @@
 				4FD6DDFC29EAA2600087E368 /* DataSingleton.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		4FFC4B702A081D5E00D68BC7 /* Recette */ = {
+			isa = PBXGroup;
+			children = (
+				4FFC4B6C2A07EDC500D68BC7 /* RecetteViewController.swift */,
+				4FFC4B712A081D7E00D68BC7 /* RecetteDetailViewController.swift */,
+			);
+			path = Recette;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,15 +397,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FD7F5762A053B5E0056FB4F /* FaceIdViewController.swift in Sources */,
 				4F1C808F29E986B100F31669 /* EditProfileViewController.swift in Sources */,
+				4F8700A52A013F2E00443A89 /* RecetteSwiftUIView.swift in Sources */,
 				4FA158F229E74FC9006775F2 /* SelectedIngredientsViewController.swift in Sources */,
 				4F74F5EB29CDF6B300428EAC /* FoodCollectionViewCell.swift in Sources */,
+				4FFC4B6F2A07EE2500D68BC7 /* RecetteCollectionViewCell.swift in Sources */,
+				4FFC4B722A081D7E00D68BC7 /* RecetteDetailViewController.swift in Sources */,
 				4F18B4AA29F877980068133C /* FoodDetailViewController.swift in Sources */,
+				4F8700A72A0145FD00443A89 /* IngredientsMeasuresTableViewCell.swift in Sources */,
+				4F8700A92A0145FD00443A89 /* FoodByCategoryViewController.swift in Sources */,
 				4F1772B829EA23F500403AFC /* User.swift in Sources */,
 				4FC894E929C8B1BC00946D4C /* LoginViewController.swift in Sources */,
 				4FD6DDFD29EAA2600087E368 /* DataSingleton.swift in Sources */,
 				4F93DD9E29DE45CE00E4E4DD /* Ingredient.swift in Sources */,
 				4FDC1FD129CB762B0091A6A0 /* TabBarController.swift in Sources */,
+				4FE5904C2A069C19003F6C21 /* uploadImageViewController.swift in Sources */,
 				4F4BF30A29E7FDEE0094B0CB /* ApiService.swift in Sources */,
 				4F9E047329C24CF800AC56DC /* EasyKitchen.xcdatamodeld in Sources */,
 				4FD6DDF629EA904B0087E368 /* PasswordEmailVerificationViewController.swift in Sources */,
@@ -385,7 +430,10 @@
 				4F93DD9C29DE31E100E4E4DD /* CartViewController.swift in Sources */,
 				4F9E046B29C24CF800AC56DC /* SceneDelegate.swift in Sources */,
 				4FD6DDFA29EA90AC0087E368 /* PasswordResetViewController.swift in Sources */,
+				4FFC4B6D2A07EDC500D68BC7 /* RecetteViewController.swift in Sources */,
+				4F8700AB2A0145FD00443A89 /* SettingsViewController.swift in Sources */,
 				4F93335429DDD94500B697BB /* Area.swift in Sources */,
+				4FFC4B6B2A07EA9A00D68BC7 /* DrawerViewController.swift in Sources */,
 				4F1C809329E9A77400F31669 /* MatchingFoodsViewController.swift in Sources */,
 				4F1772B629EA153100403AFC /* EditPasswordViewController.swift in Sources */,
 				4FD93ADE29D6321400D63956 /* Category.swift in Sources */,
@@ -538,6 +586,7 @@
 				DEVELOPMENT_TEAM = SD67XM79J2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyKitchen/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "To authenticate you with Face ID for secure access to the app.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -566,6 +615,7 @@
 				DEVELOPMENT_TEAM = SD67XM79J2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EasyKitchen/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "To authenticate you with Face ID for secure access to the app.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

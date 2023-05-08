@@ -7,15 +7,18 @@
 
 import Foundation
 
-struct Ingredient:Decodable, Equatable{
-    let _id:String
-    let strIngredient:String
-    let strDescription:String?
+struct Ingredient:Identifiable, Codable, Equatable{
+    var id = UUID()
+    var _id:String
+    var strIngredient:String
+    var strDescription:String?
     
     static func == (lhs: Ingredient, rhs: Ingredient) -> Bool {
         return lhs._id == rhs._id &&
                lhs.strIngredient == rhs.strIngredient &&
                lhs.strDescription == rhs.strDescription
     }
+    
+    
     
 }

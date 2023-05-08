@@ -14,18 +14,20 @@ class FoodDetailViewController: UIViewController,UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath) as! IngredientTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientMeasureCell", for: indexPath) as! IngredientsMeasuresTableViewCell
            
         let data = ingredients[indexPath.row]
         let data1 = measures[indexPath.row]
+        print(data1+" "+"Of" + " " + data)
            
         // Configure the cell with the extracted data
-        cell.ingredientLabel.text = data + " " + data1
-           
+        cell.ingredientMeasureLabel.text = data1+" "+"of" + " " + data
+
         return cell
     }
     
     
+    @IBOutlet weak var qrCodeImageView: UIImageView!
     var ingredients : [String] = []
     var measures:[String] = []
     
@@ -37,6 +39,7 @@ class FoodDetailViewController: UIViewController,UITableViewDataSource, UITableV
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var ingredientsListLabel: UILabel!
     
+    @IBOutlet weak var areaLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +48,13 @@ class FoodDetailViewController: UIViewController,UITableViewDataSource, UITableV
         print(ingredients.count)
         print(measures.count)
         
-        // '2 kilos'+' '+ 'of' + 'meat'
         
         foodDetailIV.kf.setImage(with: URL(string: foodDetail!.strMealThumb))
         ingredientsListLabel.text = foodDetail?.strMeal
         descriptionScrollView.text = foodDetail?.strInstructions
+        areaLabel.text = foodDetail?.strArea
+        
+        qrCodeImageView.image = generateQRCode(from: foodDetail!.strYoutube)
         
     }
     
@@ -180,6 +185,26 @@ class FoodDetailViewController: UIViewController,UITableViewDataSource, UITableV
         if let measure20 = foodDetail!.strMeasure20, !measure20.isEmpty {
             measures.append(measure20)
         }
+    }
+    func generateQRCode(from string: String) -> UIImage? {
+        // Create a data object from the input string
+        let data = string.data(using: String.Encoding.ascii)
+
+        // Create a CIFilter instance for the CIQRCodeGenerator filter
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+
+        // Set the input data for the filter
+        filter.setValue(data, forKey: "inputMessage")
+
+        // Get the output image from the filter
+        guard let outputImage = filter.outputImage else { return nil }
+
+        // Create a UIImage from the output image
+        let context = CIContext()
+        let cgImage = context.createCGImage(outputImage, from: outputImage.extent)
+        let image = UIImage(cgImage: cgImage!)
+
+        return image
     }
     
 }

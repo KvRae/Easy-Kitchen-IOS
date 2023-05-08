@@ -82,6 +82,8 @@ class EditProfileViewController: UIViewController {
                         if let jsonDict = json as? [String: Any],
                            let message = jsonDict["message"] as? String {
                             self.showAlert(title: "Success", message: message)
+                            UserDefaults.standard.removeObject(forKey: "token")
+                            
                             self.defaults.set(jsonDict["token"], forKey: "token")
 
                             

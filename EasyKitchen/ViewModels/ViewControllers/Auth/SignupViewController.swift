@@ -22,7 +22,8 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     
 
-
+    @IBOutlet weak var logoImageView: UIImageView!
+    
     @IBAction func submitButtonTapped(_ sender: Any) {
         // Get the values from the text fields
             guard let username = usernameTextField.text, !username.isEmpty else {
@@ -88,7 +89,13 @@ class SignupViewController: UIViewController {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     print(json)
+                    self.emailTextField.text = ""
+                    
+                    self.passwordTextField.text = ""
                     DispatchQueue.main.async {
+                        
+ 
+                        
                         self.showAlertNavigate(title: "Success", message: "User registered successfully")
                     }
                 } catch {
@@ -100,11 +107,6 @@ class SignupViewController: UIViewController {
             task.resume()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
     func showAlert(title: String, message: String, buttonTitle: String = "OK", completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
