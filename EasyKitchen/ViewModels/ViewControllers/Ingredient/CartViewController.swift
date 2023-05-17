@@ -14,13 +14,17 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var selectedIngredients = [Ingredient]()
     var removedIngredients = [Ingredient]()
 
+
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    
     let floatingButton = UIButton(type: .system)
 
     let searchController = UISearchController(searchResultsController: nil)
 
     @IBOutlet var containerNavigationItem: UINavigationItem!
     
-
+    
     @IBOutlet weak var selectedIngredientsButton: UIButton!
     
     @IBOutlet var ingredientTableView: UITableView!
@@ -82,6 +86,10 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        
         print(removedIngredients)
         for i in 0..<removedIngredients.count {
             ingredients.append(removedIngredients[i])
@@ -98,6 +106,35 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
             floatingButton.isEnabled = false
         }
         print (selectedIngredients)
+        
+        // Make the GET API request
+        guard let url = URL(string: "http://127.0.0.1:3000/api/ingredients") else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else { return }
+            
+            // Parse the response data and extract the relevant information
+            let decoder = JSONDecoder()
+            do {
+                let apiData = try decoder.decode([Ingredient].self, from: data)
+                
+                // Store the extracted data in an array
+                self.ingredients = apiData
+                self.filteredData = apiData
+                
+               
+
+                // Reload the tableView data on the main thread
+                DispatchQueue.main.async {
+                    self.ingredientTableView.reloadData()
+                    self.stopLoadingIndicator()
+                }
+                
+                
+            } catch {
+                print(error.localizedDescription)
+                
+            }
+        }.resume()
     }
     
     
@@ -112,6 +149,8 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
         badgeLabel.font = UIFont.systemFont(ofSize: 10)
         badgeLabel.text = "0"
         selectedIngredientsButton.addSubview(badgeLabel)
+        
+
 
         
         if let navigationBar = self.navigationController?.navigationBar {
@@ -132,7 +171,6 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         }
         print("the height of tabbar is \(tabBarController!.tabBar.frame.height)")
-        
 
         // Set the frame and position of the button
         floatingButton.frame = CGRect(x: view.bounds.width - 68, y: view.bounds.height   - tabBarController!.tabBar.frame.height - 60 , width: 48, height: 48)
@@ -161,30 +199,10 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(floatingButton)
 
         
-        // Make the GET API request
-        guard let url = URL(string: "http://127.0.0.1:3000/api/ingredients") else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            
-            // Parse the response data and extract the relevant information
-            let decoder = JSONDecoder()
-            do {
-                let apiData = try decoder.decode([Ingredient].self, from: data)
-                
-                // Store the extracted data in an array
-                self.ingredients = apiData
-                self.filteredData = apiData
 
-                // Reload the tableView data on the main thread
-                DispatchQueue.main.async {
-                    self.ingredientTableView.reloadData()
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        }.resume()
 
     }
+    
 
     @objc func didTapFloatingButton() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -205,5 +223,12 @@ class CartViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
+
+    
+    func stopLoadingIndicator(){
+        loadingIndicator.isHidden = true
+        loadingIndicator.stopAnimating()
+    }
+    
 }
 

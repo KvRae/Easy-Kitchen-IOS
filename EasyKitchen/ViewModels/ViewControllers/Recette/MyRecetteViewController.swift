@@ -7,21 +7,21 @@
 
 import UIKit
 import SwiftUI
+import JWTDecode
+import Alamofire
 import Toast
-class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate {
+
+class MyRecetteViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UISearchBarDelegate {
 
     
     var recettes:[Recette] = []
     var filteredData:[Recette] = []
     let searchController = UISearchController(searchResultsController: nil)
-    let floatingButton = UIButton(type: .system)
-    var userId :String = ""
+    var id :String = ""
 
     @IBOutlet weak var recetteNavigationItem: UINavigationItem!
     
     @IBOutlet weak var recetteCollectionView: UICollectionView!
-    
-    @IBOutlet weak var loadingIndecator: UIActivityIndicatorView!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredData.count;
@@ -30,8 +30,13 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"recetteCell",for:indexPath) as! RecetteCollectionViewCell
         
-
         let recette = filteredData[indexPath.row]
+
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
+        longPressGesture.accessibilityLabel = recette._id // set the accessibilityLabel to the recetteId
+
+        cell.addGestureRecognizer(longPressGesture)
+        
 
         cell.recetteImageView.kf.setImage(with: URL(string: recette.image))
             cell.recetteLabel.text = recette.name
@@ -75,11 +80,13 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
         recetteCollectionView.reloadData()
     }
     
-    @IBOutlet weak var emptyRecettesIV: UIImageView!
     @IBOutlet weak var emptyRecettes: UILabel!
+    
+    @IBOutlet weak var emptyRecettesIV: UIImageView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if (self.recettes.count < 1 || self.filteredData .count < 1){
             self.emptyRecettes.isHidden = false
             self.emptyRecettesIV.isHidden = false
@@ -87,9 +94,19 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
             self.emptyRecettes.isHidden = true
             self.emptyRecettesIV.isHidden = true
         }
+        let defaults = UserDefaults.standard
         
-        loadingIndecator.isHidden = false
-        loadingIndecator.startAnimating()
+        let token = defaults.object(forKey: "token") as? String
+        
+        let jwt = try? decode(jwt: token!)
+        
+        if let jwt = jwt {
+            // access the claims in the token payload
+            self.id = jwt.claim(name: "userId").string!
+                
+        } else {
+            // handle decoding error
+        }
         
         recetteCollectionView.showsVerticalScrollIndicator = false
         
@@ -101,8 +118,8 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
             searchBar.delegate = self
             let leftBarButtonItemsWidth = recetteNavigationItem.leftBarButtonItems?.reduce(0, { $0 + $1.width }) ?? 0
             let rightBarButtonItemsWidth = recetteNavigationItem.rightBarButtonItems?.reduce(0, { $0 + $1.width }) ?? 0
-            let searchBarWidth = navigationBar.frame.width - leftBarButtonItemsWidth - rightBarButtonItemsWidth - 32
-            searchBar.frame.size.width = searchBarWidth - 42
+            let searchBarWidth = navigationBar.frame.width - leftBarButtonItemsWidth - rightBarButtonItemsWidth - 60
+            searchBar.frame.size.width = searchBarWidth - 8
             searchBar.frame.size.height = 44
             
             let searchContainer = UIView(frame: searchBar.frame)
@@ -132,7 +149,11 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
             do {
                 let decoder = JSONDecoder()
                 
-                self.recettes = try decoder.decode([Recette].self, from: data)
+                let allRecettes = try decoder.decode([Recette].self, from: data)
+                
+                self.recettes = allRecettes.filter { recette in
+                    return recette.userId == self.id
+                }
                 
                 self.recettes.sort { (recette1, recette2) -> Bool in
                     let total1 = recette1.likes - recette1.dislikes
@@ -142,25 +163,24 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
                 
                 print("foods array: \(self.recettes.count)")
                 
-                self.filteredData = try decoder.decode([Recette].self,from:data)
-                self.filteredData.sort { (recette1, recette2) -> Bool in
+                self.filteredData = allRecettes.filter { recette in
+                    return recette.userId == self.id
+                }
+                    self.filteredData.sort { (recette1, recette2) -> Bool in
                     let total1 = recette1.likes - recette1.dislikes
                     let total2 = recette2.likes - recette2.dislikes
                     return total1 > total2
                 }
                 print("filteredData array: \(self.filteredData.count)")
                 DispatchQueue.main.async {
-                    if (self.recettes.count < 1 || self.filteredData .count < 1){
+                    self.recetteCollectionView.reloadData()
+                    if (self.recettes.count < 1 || self.filteredData.count < 1){
                         self.emptyRecettes.isHidden = false
                         self.emptyRecettesIV.isHidden = false
                     }else{
                         self.emptyRecettes.isHidden = true
                         self.emptyRecettesIV.isHidden = true
                     }
-                    self.stoploadingIndicator()
-
-                    self.recetteCollectionView.reloadData()
-                    
                 }
 
             } catch {
@@ -173,33 +193,29 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
 
         taskFood.resume()
     }
+    func setupBottomView() {
+
+
+    }
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (!recettes.isEmpty) {
-            self.stoploadingIndicator()
-        }
-        // Set the frame and position of the button
-        floatingButton.frame = CGRect(x: view.bounds.width - 68, y: view.bounds.height   - tabBarController!.tabBar.frame.height - 60 , width: 48, height: 48)
 
-        // Set the button's appearance
-        floatingButton.backgroundColor = UIColor(named: "orangeKitchen")
-        floatingButton.layer.cornerRadius = 24
-        floatingButton.layer.shadowColor = UIColor.black.cgColor
-        floatingButton.layer.shadowOffset = CGSize(width: 0, height: 2)
-        floatingButton.layer.shadowOpacity = 0.5
-        floatingButton.layer.shadowRadius = 2
+        let bottomView = UIView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 200 - self.tabBarController!.tabBar.frame.size.height - 12, width: UIScreen.main.bounds.width, height: 200))
+        self.view.addSubview(bottomView)
         
-        // Set the button's image or title
-        let image = UIImage(systemName: "plus")?
-            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 14, weight: .regular))
-            .withRenderingMode(.alwaysTemplate)
-        floatingButton.setImage(image, for: .normal)
-        floatingButton.tintColor = .white
-        floatingButton.addTarget(self, action: #selector(didTapFloatingButton), for: .touchUpInside)
+        var style = ToastStyle()
+        
+        style.backgroundColor = UIColor.systemFill
+        style.messageColor = UIColor.label
+        
+        ToastManager.shared.style = style
 
-        // Add the button to the view hierarchy
-        view.addSubview(floatingButton)
+        bottomView.makeToast("Hold on a recipe to delete it")
+
+
     }
     
     @objc func didTapFloatingButton() {
@@ -212,10 +228,64 @@ class RecetteViewController: UIViewController,UICollectionViewDelegate,UICollect
 
              }
 
-    
-    func stoploadingIndicator () {
-        loadingIndecator.isHidden = true
-        loadingIndecator.stopAnimating()
+    @objc func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
+        guard let recetteId = sender.accessibilityLabel else { return } // get the recetteId from accessibilityLabel
+        
+        print(recetteId)
+        let alert = UIAlertController(title: "Delete Confirmation", message: "Are you sure you want to delete this item?", preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+
+            /*
+            guard let url = URL(string: "http://127.0.0.1:3000/api/recettes/\(recetteId)") else { return }
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+                guard let self = self else { return }
+                if let error = error {
+                    print("Error deleting recette: \(error)")
+                    return
+                }
+                guard let response = response as? HTTPURLResponse, 200...299 ~= response.statusCode else {
+                    print("Failed to delete recette")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.recettes = self.recettes.filter { $0._id != recetteId }
+                    self.recetteCollectionView.reloadData()
+                }
+            }.resume()*/
+            
+            
+            let url = "http://127.0.0.1:3000/api/recettes/\(recetteId)"
+            AF.request(url, method: .delete).validate().responseData { [weak self] response in
+                guard let self = self else { return }
+                switch response.result {
+                case .success:
+                    self.recettes = self.recettes.filter { $0._id != recetteId }
+                    self.filteredData = self.filteredData.filter { $0._id != recetteId }
+                    if (self.recettes.count < 1 || self.filteredData .count < 1){
+                        self.emptyRecettes.isHidden = false
+                        self.emptyRecettesIV.isHidden = false
+                    }else{
+                        self.emptyRecettes.isHidden = true
+                        self.emptyRecettesIV.isHidden = true
+                    }
+
+                    self.recetteCollectionView.reloadData()
+                case .failure(let error):
+                    print("Error deleting recette: \(error)")
+                }
+            }
+        }
+        alert.addAction(deleteAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
     }
+    
 
 }

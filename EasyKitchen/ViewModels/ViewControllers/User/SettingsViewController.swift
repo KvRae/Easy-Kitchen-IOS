@@ -26,6 +26,7 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var phoneLabel: UILabel!
 
+    @IBOutlet weak var chefHatIV: UIImageView!
     
     @IBAction func signoutButtonTapped(_ sender: Any) {
        /*
@@ -37,13 +38,15 @@ class SettingsViewController: UIViewController {
         
         // Remove user data from storage
         UserDefaults.standard.removeObject(forKey: "token")
+        UserDefaults.standard.removeObject(forKey: "userId")
+        UserDefaults.standard.removeObject(forKey: "user")
         
         UIView.transition(with: UIApplication.shared.windows.first!,
                           duration: 0.5,
                           options: .transitionFlipFromLeft,
                           animations: {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let rootVC = storyboard.instantiateViewController(withIdentifier: "LoginVC")
+            let rootVC = storyboard.instantiateViewController(withIdentifier: "loginVC")
             let navVC = UINavigationController(rootViewController: rootVC)
             UIApplication.shared.windows.first?.rootViewController = navVC
             UIApplication.shared.windows.first?.makeKeyAndVisible()
@@ -52,11 +55,21 @@ class SettingsViewController: UIViewController {
     }
 
  
+ 
+    @IBOutlet weak var chefHatSwitch: UISwitch!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let defaults = UserDefaults.standard
 
         let token = defaults.object(forKey: "token") as? String
+        
+        let chefHatCheck = defaults.object(forKey: "chefHat") as? Bool
+        
+        if (chefHatCheck == true){
+            chefHatIV.isHidden = false
+        }else{
+            chefHatIV.isHidden = true
+        }
         
         print(token)
         
@@ -73,7 +86,12 @@ class SettingsViewController: UIViewController {
         }else{
             faceIdSwitch.isOn = false
         }
-
+        
+        if (chefHatCheck == true){
+            chefHatSwitch.isOn = true
+        }else{
+            chefHatSwitch.isOn = false
+        }
         let jwt = try? decode(jwt: token!)
         
         if let jwt = jwt {
@@ -114,6 +132,23 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    @IBAction func chefHatTapped(_ sender: UISwitch) {
+        let defaults = UserDefaults.standard
 
+        if sender.isOn{
+            defaults.set(true, forKey: "chefHat")
+            DispatchQueue.main.async {
+                self.chefHatIV.isHidden =  false
+            }
+            
+        }else{
+            defaults.set(false, forKey: "chefHat")
+            DispatchQueue.main.async {
+                self.chefHatIV.isHidden =  true
+            }
+        }
+        
+    }
+    
 
 }

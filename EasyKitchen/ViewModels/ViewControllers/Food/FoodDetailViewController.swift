@@ -31,6 +31,25 @@ class FoodDetailViewController: UIViewController,UITableViewDataSource, UITableV
     var ingredients : [String] = []
     var measures:[String] = []
     
+    @IBAction func youtubeButton(_ sender: Any) {
+        if (foodDetail!.strYoutube.isEmpty){
+            // Alert goes here
+        }
+        else{
+
+            let webURL = URL(string: foodDetail!.strYoutube)!
+
+            if UIApplication.shared.canOpenURL(webURL) {
+                // Open the YouTube app
+                UIApplication.shared.open(webURL)
+            } else {
+                // YouTube app is not installed, open in Safari
+                UIApplication.shared.open(webURL)
+            }
+        }
+    }
+    
+    
     var foodDetail: Food? = nil
     @IBOutlet weak var descriptionScrollView: UITextView!
     @IBOutlet weak var ingredientsMesuresTableView: UITableView!

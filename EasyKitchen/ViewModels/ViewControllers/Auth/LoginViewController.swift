@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
@@ -19,6 +20,22 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var logoImageView: UIImageView!
     
+    @IBAction func googleButton(_ sender: UIButton) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            guard error == nil else { return }
+         
+            let defaults = UserDefaults.standard
+            let user = signInResult?.user.profile
+            defaults.set(user?.name, forKey: "user")
+            let msg = user!.name
+            
+            self.showAlert(title: "Welcome", message: msg)
+            
+            
+             
+            // If sign in succeeded, display the app's main content View.
+          }
+    }
     @IBAction func loginButtonTapped(_ sender: Any) {
         
             // Get the values from the text fields
@@ -31,6 +48,7 @@ class LoginViewController: UIViewController {
                     showAlert(title: "Mot de passe", message: "Le Mot de passe ne doit pas être vide !")
                     return
                 }
+        
 
                 // Set the URL for the POST request
                 let url = URL(string: "http://127.0.0.1:3000/api/login")!
@@ -72,6 +90,8 @@ class LoginViewController: UIViewController {
                            let username = user["username"] as? String {
                             defaults.set(json["token"], forKey: "token")
                             defaults.set(json["user"], forKey: "user")
+                            let userId = user["_id"]
+                            defaults.set(userId!,forKey: "userId")
                             DispatchQueue.main.async {
                                 self.showAlertNavigate(title: "Success", message: "Welcome \(username)")
                             }
@@ -156,7 +176,6 @@ class LoginViewController: UIViewController {
 
 
 
-
 /*                    do {
                         let json = try JSONSerialization.jsonObject(with: data, options: [])
                         print(json)
@@ -173,3 +192,5 @@ class LoginViewController: UIViewController {
                     } catch {
                         print("Error parsing JSON: \(error.localizedDescription)")
                     }*/
+
+

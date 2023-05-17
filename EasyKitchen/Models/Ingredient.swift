@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Ingredient:Identifiable, Codable, Equatable{
-    var id = UUID()
+struct Ingredient:/*Identifiable,*/ Codable, Equatable/*,Hashable*/	{
+//    var id = UUID()
     var _id:String
     var strIngredient:String
     var strDescription:String?
@@ -19,6 +19,9 @@ struct Ingredient:Identifiable, Codable, Equatable{
                lhs.strDescription == rhs.strDescription
     }
     
-    
-    
+/*
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+  */
 }

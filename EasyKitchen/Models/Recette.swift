@@ -21,6 +21,7 @@ struct Recette:Codable{
     let usersLiked:[String]?
     let usersDisliked:[String]?
     let comments:[String]
+    let userId:String
     let user:[String]?
     let username:String
     let strIngredient1:String?

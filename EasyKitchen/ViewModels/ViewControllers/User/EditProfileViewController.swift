@@ -38,6 +38,12 @@ class EditProfileViewController: UIViewController {
                 showAlert(title: "Adresse Email", message: "L'Adresse Email ne doit pas être vide !")
                 return
             }
+        guard let confirmEmail = ConfirmEmail.text, !confirmEmail.isEmpty else {
+            showAlert(title: "Adresse Email", message: "L'Adresse de confirmation ne doit pas être vide !")
+            return
+        }
+            
+    
 
 
             
@@ -101,6 +107,7 @@ class EditProfileViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         /*
          if let userData = UserDefaults.standard.data(forKey: "user"),

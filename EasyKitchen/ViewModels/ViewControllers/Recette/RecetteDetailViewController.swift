@@ -57,7 +57,34 @@ class RecetteDetailViewController: UIViewController,UITableViewDataSource, UITab
     @IBOutlet weak var dislikeButton: UIButton!
     
     
-    
+    var total:Int = 0
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let defaults = UserDefaults.standard
+        
+        let userId = defaults.object(forKey: "userId") as! String
+        
+        let usersLikedArray = recetteDetail!.usersLiked
+        let usersDislikedArray = recetteDetail!.usersDisliked
+
+        
+        for userLiked in usersLikedArray!{
+            print(userLiked)
+            print(userId)
+            
+            if (userLiked == userId){
+                likeButton.tintColor = UIColor(named: "orangeKitchen")
+            }
+        }
+        for usersDisliked in usersDislikedArray!{
+            print(usersDisliked)
+            print(userId)
+            if (usersDisliked == userId){
+                dislikeButton.tintColor = UIColor(named: "orangeKitchen")
+            }
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +99,7 @@ class RecetteDetailViewController: UIViewController,UITableViewDataSource, UITab
         ingredientsListLabel.text = recetteDetail?.name
         descriptionScrollView.text = recetteDetail?.description
         userLabel.text = recetteDetail?.username
-        let total = recetteDetail!.likes - recetteDetail!.dislikes
+        self.total = recetteDetail!.likes - recetteDetail!.dislikes
         likeCountLabel.text = "\(total)"
         durationView.layer.cornerRadius = 10.0
         
@@ -244,100 +271,174 @@ class RecetteDetailViewController: UIViewController,UITableViewDataSource, UITab
     
     @IBAction func likeButtonTapped(_ sender: Any) {
         let defaults = UserDefaults.standard
-        let token = defaults.object(forKey: "token") as? String
-
-        let jwt = try? decode(jwt: token!)
         
-        if let jwt = jwt {
-        guard let url = URL(string: "http://localhost:3000/api/recettes/\(recetteDetail!._id)/like") else {
-            print("Invalid URL")
-            return
-        }
+        let userId = defaults.object(forKey: "userId") as! String
+        
+        // Set the URL for the POST request
+        let url = URL(string: "http://localhost:3000/api/recettes/\(recetteDetail!._id)/like")!
 
-            // access the claims in the token payload
-            let userId = jwt.claim(name: "userId").string!
-            let body = ["id":userId ]
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "PATCH"
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        // Create the request object
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
 
-            let session = URLSession.shared
-            let task = session.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error.localizedDescription)")
-                    return
-                }
+        // Set the request body
+        let params = ["userId": userId]
+                    
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params)
 
-                if let response = response as? HTTPURLResponse {
-                    print("Status code: \(response.statusCode)")
-                }
+        // Set the request headers
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-                if let data = data {
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response: \(responseString)")
-                        DispatchQueue.main.async {
-                            self.showAlert(title: "Success", message: "The recipe has been liked!")
-                        }
-                    }
-                }
+        // Create a URLSession instance
+        let session = URLSession.shared
+        
+    
+        // Create the data task
+        let task = session.dataTask(with: request) { (data, response, error) in
+            // Handle the response
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
             }
 
-            task.resume()
-        } else {
-            // handle decoding error
+            guard let data = data else {
+                print("No data returned from server")
+                return
+            }
+            
+            do {
+
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Success", message: "The recipe has been liked!")
+                        print(json)
+                        let message = json["message"] as! String
+                        if (message == "Recette like +1"){
+                            self.likeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total += 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                        }else if (message=="Recette dislike +1"){
+                            self.dislikeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total -= 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }else if (message=="Recette like +1 dislike -1"){
+                            self.likeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total += 2
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                        }else if (message == "Recette dislike +1 like -1"){
+                            self.dislikeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total -= 2
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }else if (message == "Recette dislike -1"){
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                            self.total += 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }else if (message == "Recette like -1"){
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                            self.total -= 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }
+
+                    }
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+            }
         }
-
-
-
-        
+        // Start the data task
+        task.resume()
     }
+    
     
     @IBAction func dislikeButtonTapped(_ sender: Any) {
         let defaults = UserDefaults.standard
-        let token = defaults.object(forKey: "token") as? String
-
-        let jwt = try? decode(jwt: token!)
         
-        if let jwt = jwt {
-        guard let url = URL(string: "http://localhost:3000/api/recettes/\(recetteDetail!._id)/dislike") else {
-            print("Invalid URL")
-            return
-        }
+        let userId = defaults.object(forKey: "userId") as! String
+        
+        // Set the URL for the POST request
+        let url = URL(string: "http://localhost:3000/api/recettes/\(recetteDetail!._id)/dislike")!
 
-            // access the claims in the token payload
-            let userId = jwt.claim(name: "userId").string!
-            let body = ["id":userId ]
+        // Create the request object
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        // Set the request body
+        let params = ["userId": userId]
+                    
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params)
+
+        // Set the request headers
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Create a URLSession instance
+        let session = URLSession.shared
+        
+    
+        // Create the data task
+        let task = session.dataTask(with: request) { (data, response, error) in
+            // Handle the response
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data returned from server")
+                return
+            }
             
-            var request = URLRequest(url: url)
-            request.httpMethod = "PATCH"
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+            do {
 
-            let session = URLSession.shared
-            let task = session.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error: \(error.localizedDescription)")
-                    return
-                }
-
-                if let response = response as? HTTPURLResponse {
-                    print("Status code: \(response.statusCode)")
-                }
-
-                if let data = data {
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response: \(responseString)")
-                        DispatchQueue.main.async {
-                            self.showAlert(title: "Success", message: "The recipe has been liked!")
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+                    DispatchQueue.main.async {
+                        self.showAlert(title: "Success", message: "The recipe has been disliked!")
+                        print(json)
+                        let message = json["message"] as! String
+                        if (message == "Recette like +1"){
+                            self.likeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total += 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                        }else if (message=="Recette dislike +1"){
+                            self.dislikeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total -= 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }else if (message=="Recette like +1 dislike -1"){
+                            self.likeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total += 2
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                        }else if (message == "Recette dislike +1 like -1"){
+                            self.dislikeButton.tintColor = UIColor(named: "orangeKitchen")
+                            self.total -= 2
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }else if (message == "Recette dislike -1"){
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                            self.total += 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
+                        }else if (message == "Recette like -1"){
+                            self.dislikeButton.tintColor = UIColor.lightGray
+                            self.total -= 1
+                            self.likeCountLabel.text = "\(self.total)"
+                            self.likeButton.tintColor = UIColor.lightGray
                         }
                     }
                 }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
             }
-
-            task.resume()
-        } else {
-            // handle decoding error
         }
+        // Start the data task
+        task.resume()
     }
     
  

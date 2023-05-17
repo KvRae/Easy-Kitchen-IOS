@@ -12,9 +12,6 @@ import Kingfisher
 class uploadImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let defaults = UserDefaults.standard
-
-
-    
     
     @IBOutlet weak var profileImageView: UIImageView!
 
@@ -22,7 +19,7 @@ class uploadImageViewController: UIViewController, UIImagePickerControllerDelega
     var userId : String = ""
     var image : String = ""
 
-    
+
 
     let imagePicker = UIImagePickerController()
 
@@ -80,135 +77,6 @@ class uploadImageViewController: UIViewController, UIImagePickerControllerDelega
 
     }
 
-
- 
-/*
-    @objc func uploadProfilePicture() {
-
-        guard let userId = self.userId,
-              
-        
-        let imageData = profileImageView.image?.jpegData(compressionQuality: 0.5)
-
-       
-
-        else {
-
-            print("Failed to get user ID or image data")
-
-            return
-
-        }
-
-        self.showAlertNavigate(title: "success", message: "Great Pic")
-
-           
-
-           // rest of your code here
-
-       
-        print("the userID is" + self.userId)
-
-        let url = URL(string: "http://localhost:3000/api/users/upload/\(self.userId)")!
-
-        
-
-        var request = URLRequest(url: url)
-
-        request.httpMethod = "PUT"
-
-        
-
-        let boundary = UUID().uuidString
-
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
-        
-
-        var body = Data()
-
-        
-
-        let fieldName = "file"
-
-        let fileName = UUID().uuidString + ".jpg"
-
-        let mimeType = "image/jpeg"
-
-        
-
-        body.append("--\(boundary)\r\n".data(using: .utf8)!)
-
-        body.append("Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-
-        body.append("Content-Type: \(mimeType)\r\n\r\n".data(using: .utf8)!)
-
-        body.append(imageData)
-
-        body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-
-        
-
-        request.httpBody = body
-
-        
-
-        let session = URLSession.shared
-
-        let task = session.dataTask(with: request) { (data, response, error) in
-
-            if let error = error {
-
-                print(error.localizedDescription)
-
-                return
-
-            }
-
-            
-
-            guard let httpResponse = response as? HTTPURLResponse,
-
-                  (200...299).contains(httpResponse.statusCode) else {
-
-                print("Invalid response")
-
-                return
-
-            }
-
-            
-
-            guard let responseData = data else {
-
-                print("No data received")
-
-                return
-
-            }
-
-            
-
-            do {
-
-                let json = try JSONSerialization.jsonObject(with: responseData, options: [])
-
-                print(json)
-
-            } catch {
-
-                print(error.localizedDescription)
-
-            }
-
-        }
-
-        
-
-        task.resume()
-
-    }
-*/
     
     @objc func uploadProfilePicture() {
         

@@ -8,6 +8,9 @@
 import UIKit
 import Kingfisher
 import UserNotifications
+import JWTDecode
+import SwiftUI
+import QuartzCore
 
 class HomeViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     var foods: [Food] = []
@@ -15,14 +18,22 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     var foodImages: [URL] = []
     var categories: [Category] = []
     var categoriesImages: [URL] = []
-    
+    var recettes: [Recette] = []
+
     @IBOutlet weak var expertLabel: UILabel!
+    
+    @IBOutlet weak var categoryLabel: UILabel!
+    
+    @IBOutlet weak var recetteLabel: UILabel!
+    
+    
     
     @IBOutlet var foodCollectionView: UICollectionView!
     
     @IBOutlet var categoryCollectionview: UICollectionView!
     //FOOD COLLECTION VIEW
     
+    @IBOutlet weak var recetteCollectionView: UICollectionView!
     
     var drawerViewController: DrawerViewController?
 
@@ -31,13 +42,21 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         if (collectionView == foodCollectionView ){
             return min(5,foodFilter.count)
         } else if ( collectionView == categoryCollectionview) {
+
             return categories.count
             
+        }else if (collectionView == recetteCollectionView){
+            return recettes.count
         }
         return 0
     }
     
+    @IBOutlet weak var bioButton: UIButton!
+    @IBOutlet weak var avatarIV: UIImageView!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var chefHat: UIImageView!
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var category = " "
@@ -46,22 +65,6 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         if (getMeal(for: Date()) == "Dinner"){category = "Seafood"}
         
         if (collectionView == foodCollectionView ){
-            /*
-             let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"foodCell",for:indexPath) as! FoodCollectionViewCell
-             
-             foodFilter = foods.filter{$0.strCategory == category}
-             
-             let food = foodFilter[indexPath.row]
-             
-             cell.foodImage.kf.setImage(with: URL(string: food.strMealThumb))
-             cell.foodTitle.text = food.strMeal
-             cell.foodImage.layer.cornerRadius = 20.0
-             cell.foodImage.contentMode = .scaleAspectFill
-             cell.foodImage.clipsToBounds = true
-             cell.blackScreen.layer.cornerRadius = 20.0
-             
-             return cell
-             */
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foodCell", for: indexPath) as! FoodCollectionViewCell
             
             foodFilter = foods.filter { $0.strCategory == category }
@@ -94,6 +97,26 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             
             return cell
             
+        } else if ( collectionView == recetteCollectionView){
+            
+            let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"recetteCell",for:indexPath) as! RecetteCollectionViewCell
+            
+
+            let recette = self.recettes[indexPath.row]
+
+            cell.recetteImageView.kf.setImage(with: URL(string: recette.image))
+                cell.recetteLabel.text = recette.name
+                cell.recetteImageView.layer.cornerRadius = 20.0
+                cell.recetteImageView.contentMode = .scaleAspectFill
+                cell.recetteImageView.clipsToBounds = true
+                cell.blackScreen.layer.cornerRadius = 20.0
+
+            let total = recette.likes - recette.dislikes
+            
+            cell.recetteLikeButton.setTitle("\(total)",for: .normal)
+            cell.recetteLikeButton.titleLabel?.font = UIFont.systemFont(ofSize: 1)
+
+            return cell
         }
         return UICollectionViewCell()
         
@@ -135,24 +158,138 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             // Push the detail view controller onto the navigation stack
             navigationController?.pushViewController(foodByCategoryViewController, animated: true)
             
+        } else if (collectionView == recetteCollectionView){
+            
+            // Get the product that was selected
+            let recetteDetail = self.recettes[indexPath.item]
+            // Create a new view controller to display the product details
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let recetteDetailViewController = storyboard.instantiateViewController(withIdentifier: "recetteDetailVC") as! RecetteDetailViewController
+            recetteDetailViewController.recetteDetail = recetteDetail
+            
+            // Push the detail view controller onto the navigation stack
+            
+            navigationController?.pushViewController(recetteDetailViewController, animated: true)
         }
         
     }
     
     let defaults = UserDefaults.standard
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    @IBOutlet weak var gradientBIO: UIView!
+    
+    @IBOutlet weak var whiteBoard: UIView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        whiteBoard.isHidden = true
+        gradientBIO.isHidden = true
+
+        self.foodCollectionView.backgroundColor = UIColor.clear
+        self.categoryCollectionview.backgroundColor = UIColor.clear
+        self.recetteCollectionView.backgroundColor = UIColor.clear
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = [UIColor.green.cgColor, UIColor.blue.cgColor]  // Replace with your desired start and end colors
+        gradientLayer.startPoint = CGPoint(x: 1, y: 0)  // Adjust the start point as needed
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        
+        gradientBIO.layer.addSublayer(gradientLayer)
+        
+        
+        navigationItem.hidesBackButton = true
+        
+        let chefHatCheck = defaults.object(forKey: "chefHat") as? Bool
+        if (chefHatCheck == true){
+            chefHat.isHidden = false
+
+        }else{
+            chefHat.isHidden = true
+
+        }
+        scheduleNotification()
+        let token = defaults.object(forKey: "token") as? String
+        let jwt = try? decode(jwt: token!)
+        
+        if let jwt = jwt {
+            // access the claims in the token payload
+            nameLabel.text = jwt.claim(name: "username").string!
+            let image = jwt.claim(name: "image").string!
+            
+            avatarIV.kf.setImage(with: URL(string: image))
+            
+            
+                
+        } else {
+            // handle decoding error
+        }
+        
+        // recettes
+        
+        guard let urlRecette = URL(string: "http://127.0.0.1:3000/api/recettes") else { return }
+        let sessionFood = URLSession.shared
+        let taskFood = sessionFood.dataTask(with: urlRecette) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                print("Error: invalid response")
+                self.recetteLabel.isHidden = false
+                return
+            }
+
+            guard let data = data else {
+                print("Error: missing data")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                
+                self.recettes = try decoder.decode([Recette].self, from: data)
+                    
+                print (self.recettes.count)
+                self.recettes.sort { (recette1, recette2) -> Bool in
+                    let total1 = recette1.likes - recette1.dislikes
+                    let total2 = recette2.likes - recette2.dislikes
+                    return total1 > total2
+                }
+                
+                print("foods array: \(self.recettes.count)")
+                
+                DispatchQueue.main.async {
+                    self.recetteCollectionView.reloadData()
+                }
+
+            } catch {
+                print("Error decoding JSON: \(error.localizedDescription)")
+            }
+
+            // Process the data here
+
+        }
+
+        taskFood.resume()
 
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bioButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+
+        
+        avatarIV.layer.cornerRadius = avatarIV.frame.size.width / 2
+        avatarIV.clipsToBounds = true
+        avatarIV.contentMode = .scaleAspectFill
         
         let time = getMeal(for: Date())
-        if (time == "Breakfast"){expertLabel.text = "Recettes de petit dejeuner recommandées"}
-        if (time == "Lunch"){expertLabel.text = "Recettes de dejeuner recommandées"}
-        if (time == "Dinner"){expertLabel.text = "Recettes de dinner recommandées"}
+        if (time == "Breakfast"){expertLabel.text = "For Breakfest"}
+        if (time == "Lunch"){expertLabel.text = "For Launch"}
+        if (time == "Dinner"){expertLabel.text = "For Dinner"}
         
         let token = defaults.object(forKey: "token") as? String
         
@@ -238,21 +375,9 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
         
         taskCat.resume()
-        
-        
-
-        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Hide the back button
-        navigationItem.hidesBackButton = true
-        
-        scheduleNotification()
 
-    }
     
     
     func getMeal(for date: Date) -> String {
@@ -279,7 +404,6 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
                 print("Notifications permission denied.")
             }
         }
-                
         return true
     }
     
@@ -318,5 +442,18 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
     }
 
+    
+    @objc func buttonTapped(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
 
+        if sender.isSelected {
+            whiteBoard.isHidden = false
+            gradientBIO.isHidden = false
+            
+        } else {
+            whiteBoard.isHidden = true
+            gradientBIO.isHidden = true
+        }
+    }
+    
 }

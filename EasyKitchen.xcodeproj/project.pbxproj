@@ -15,6 +15,7 @@
 		4F225A1229DB845700C971D2 /* Recette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F225A1129DB845700C971D2 /* Recette.swift */; };
 		4F26A17929D2582C00E1FF27 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */; };
 		4F4BF30A29E7FDEE0094B0CB /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4BF30929E7FDEE0094B0CB /* ApiService.swift */; };
+		4F5C1F6B2A102F9600B9E04D /* MyRecetteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C1F6A2A102F9600B9E04D /* MyRecetteViewController.swift */; };
 		4F74F5E929CDDEE600428EAC /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F74F5E829CDDEE600428EAC /* Food.swift */; };
 		4F74F5EB29CDF6B300428EAC /* FoodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */; };
 		4F8700A52A013F2E00443A89 /* RecetteSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8700A42A013F2E00443A89 /* RecetteSwiftUIView.swift */; };
@@ -38,6 +39,10 @@
 		4FA158F229E74FC9006775F2 /* SelectedIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */; };
 		4FC894E729C8B15900946D4C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC894E629C8B15900946D4C /* SignupViewController.swift */; };
 		4FC894E929C8B1BC00946D4C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC894E829C8B1BC00946D4C /* LoginViewController.swift */; };
+		4FCB89A82A11354C00FB6682 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCB89A72A11354C00FB6682 /* Alamofire */; };
+		4FCB89AB2A113D5C00FB6682 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCB89AA2A113D5C00FB6682 /* Toast */; };
+		4FCB89AE2A11552000FB6682 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCB89AD2A11552000FB6682 /* GoogleSignIn */; };
+		4FCB89B02A11552000FB6682 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCB89AF2A11552000FB6682 /* GoogleSignInSwift */; };
 		4FD6DDF629EA904B0087E368 /* PasswordEmailVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF529EA904B0087E368 /* PasswordEmailVerificationViewController.swift */; };
 		4FD6DDF829EA907F0087E368 /* PasswordVerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF729EA907F0087E368 /* PasswordVerificationCodeViewController.swift */; };
 		4FD6DDFA29EA90AC0087E368 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD6DDF929EA90AC0087E368 /* PasswordResetViewController.swift */; };
@@ -63,6 +68,7 @@
 		4F225A1129DB845700C971D2 /* Recette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recette.swift; sourceTree = "<group>"; };
 		4F26A17829D2582C00E1FF27 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F4BF30929E7FDEE0094B0CB /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		4F5C1F6A2A102F9600B9E04D /* MyRecetteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecetteViewController.swift; sourceTree = "<group>"; };
 		4F74F5E829CDDEE600428EAC /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		4F74F5EA29CDF6B300428EAC /* FoodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewCell.swift; sourceTree = "<group>"; };
 		4F8700A42A013F2E00443A89 /* RecetteSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetteSwiftUIView.swift; sourceTree = "<group>"; };
@@ -107,6 +113,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FCB89AE2A11552000FB6682 /* GoogleSignIn in Frameworks */,
+				4FCB89AB2A113D5C00FB6682 /* Toast in Frameworks */,
+				4FCB89A82A11354C00FB6682 /* Alamofire in Frameworks */,
+				4FCB89B02A11552000FB6682 /* GoogleSignInSwift in Frameworks */,
 				4FD6DE0029EAFD660087E368 /* JWTDecode in Frameworks */,
 				4F904B5A29CFBD570075B590 /* Kingfisher in Frameworks */,
 			);
@@ -314,6 +324,7 @@
 			children = (
 				4FFC4B6C2A07EDC500D68BC7 /* RecetteViewController.swift */,
 				4FFC4B712A081D7E00D68BC7 /* RecetteDetailViewController.swift */,
+				4F5C1F6A2A102F9600B9E04D /* MyRecetteViewController.swift */,
 			);
 			path = Recette;
 			sourceTree = "<group>";
@@ -337,6 +348,10 @@
 			packageProductDependencies = (
 				4F904B5929CFBD570075B590 /* Kingfisher */,
 				4FD6DDFF29EAFD660087E368 /* JWTDecode */,
+				4FCB89A72A11354C00FB6682 /* Alamofire */,
+				4FCB89AA2A113D5C00FB6682 /* Toast */,
+				4FCB89AD2A11552000FB6682 /* GoogleSignIn */,
+				4FCB89AF2A11552000FB6682 /* GoogleSignInSwift */,
 			);
 			productName = EasyKitchen;
 			productReference = 4F9E046529C24CF800AC56DC /* EasyKitchen.app */;
@@ -369,6 +384,9 @@
 			packageReferences = (
 				4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4FD6DDFE29EAFD660087E368 /* XCRemoteSwiftPackageReference "JWTDecode" */,
+				4FCB89A62A11354C00FB6682 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4FCB89A92A113D5C00FB6682 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				4FCB89AC2A11552000FB6682 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 4F9E046629C24CF800AC56DC /* Products */;
 			projectDirPath = "";
@@ -425,6 +443,7 @@
 				4F93335229DDD45E00B697BB /* FoodViewController.swift in Sources */,
 				4F9E046929C24CF800AC56DC /* AppDelegate.swift in Sources */,
 				4F26A17929D2582C00E1FF27 /* CategoryCollectionViewCell.swift in Sources */,
+				4F5C1F6B2A102F9600B9E04D /* MyRecetteViewController.swift in Sources */,
 				4F93DDA029DE480600E4E4DD /* IngredientTableViewCell.swift in Sources */,
 				4FDC1FCB29CB48910091A6A0 /* HomeViewController.swift in Sources */,
 				4F93DD9C29DE31E100E4E4DD /* CartViewController.swift in Sources */,
@@ -666,6 +685,30 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		4FCB89A62A11354C00FB6682 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		4FCB89A92A113D5C00FB6682 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		4FCB89AC2A11552000FB6682 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		4FD6DDFE29EAFD660087E368 /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
@@ -681,6 +724,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F904B5829CFBD570075B590 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		4FCB89A72A11354C00FB6682 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FCB89A62A11354C00FB6682 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		4FCB89AA2A113D5C00FB6682 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FCB89A92A113D5C00FB6682 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		4FCB89AD2A11552000FB6682 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FCB89AC2A11552000FB6682 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		4FCB89AF2A11552000FB6682 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4FCB89AC2A11552000FB6682 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 		4FD6DDFF29EAFD660087E368 /* JWTDecode */ = {
 			isa = XCSwiftPackageProductDependency;

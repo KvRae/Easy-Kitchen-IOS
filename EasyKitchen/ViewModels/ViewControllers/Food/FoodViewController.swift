@@ -12,8 +12,11 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
     var areas: [Area] = []
     var foods: [Food] = []
     var filteredData: [Food] = []
+    var foodFilter: [Food] = []
 
 
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var foodNavigationItem: UINavigationItem!
     @IBOutlet var areaCollectionView: UICollectionView!
     
@@ -80,6 +83,21 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
             // Push the detail view controller onto the navigation stack
             navigationController?.pushViewController(foodDetailViewController, animated: true)
             
+        }else if (collectionView == areaCollectionView){
+            // Get the product that was selected
+            let areaDetail = self.areas[indexPath.item]
+            print(type(of: areaDetail))
+            // Create a new view controller to display the product details
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let foodByCategoryViewController = storyboard.instantiateViewController(withIdentifier: "foodCatVC") as! FoodByCategoryViewController
+            foodFilter = foods.filter { $0.strArea == areaDetail.strArea }
+            
+            //foodByCategoryViewController.categoryDetail = categoryDetail
+            foodByCategoryViewController.foodFilter = foods.filter { $0.strArea == areaDetail.strArea }
+
+            
+            // Push the detail view controller onto the navigation stack
+            navigationController?.pushViewController(foodByCategoryViewController, animated: true)
         }
    
     }
@@ -173,7 +191,7 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
             }
             do {
                 let decoder = JSONDecoder()
-                
+                self.stopLoading()
                 self.foods = try decoder.decode([Food].self, from: data)
                 print("foods array: \(self.foods.count)")
                 self.filteredData = try decoder.decode([Food].self,from:data)
@@ -193,16 +211,15 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
         taskFood.resume()
 
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
     }
-    */
+    
+    func stopLoading(){
+        loadingIndicator.isHidden = true
+        loadingIndicator.stopAnimating()
+    }
 
 }
+
