@@ -83,7 +83,8 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
             // Push the detail view controller onto the navigation stack
             navigationController?.pushViewController(foodDetailViewController, animated: true)
             
-        }else if (collectionView == areaCollectionView){
+        }
+        else if (collectionView == areaCollectionView){
             // Get the product that was selected
             let areaDetail = self.areas[indexPath.item]
             print(type(of: areaDetail))
@@ -111,6 +112,8 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
         foodCollectionView.reloadData()
     }
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -136,6 +139,13 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
 
         }
         print(self.filteredData)
+
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+        
         guard let url = URL(string: "http://127.0.0.1:3000/api/areas") else { return }
         let session = URLSession.shared
         let task = session.dataTask(with: url) { (data, response, error) in
@@ -209,11 +219,8 @@ class FoodViewController: UIViewController,UICollectionViewDelegate,UICollection
         }
 
         taskFood.resume()
-
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        loadingIndicator.isHidden = false
-        loadingIndicator.startAnimating()
+        
+        
     }
     
     func stopLoading(){

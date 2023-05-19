@@ -37,6 +37,7 @@
 		4F9E047529C24CF900AC56DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F9E047429C24CF900AC56DC /* Assets.xcassets */; };
 		4F9E047829C24CF900AC56DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F9E047629C24CF900AC56DC /* LaunchScreen.storyboard */; };
 		4FA158F229E74FC9006775F2 /* SelectedIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */; };
+		4FB9ABDE2A16928900F28030 /* HomeHealthyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB9ABDD2A16928900F28030 /* HomeHealthyViewController.swift */; };
 		4FC894E729C8B15900946D4C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC894E629C8B15900946D4C /* SignupViewController.swift */; };
 		4FC894E929C8B1BC00946D4C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC894E829C8B1BC00946D4C /* LoginViewController.swift */; };
 		4FCB89A82A11354C00FB6682 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4FCB89A72A11354C00FB6682 /* Alamofire */; };
@@ -91,6 +92,7 @@
 		4F9E047729C24CF900AC56DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4F9E047929C24CF900AC56DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4FA158F129E74FC9006775F2 /* SelectedIngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedIngredientsViewController.swift; sourceTree = "<group>"; };
+		4FB9ABDD2A16928900F28030 /* HomeHealthyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHealthyViewController.swift; sourceTree = "<group>"; };
 		4FC894E629C8B15900946D4C /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		4FC894E829C8B1BC00946D4C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4FD6DDF529EA904B0087E368 /* PasswordEmailVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEmailVerificationViewController.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 			children = (
 				4FDC1FCA29CB48910091A6A0 /* HomeViewController.swift */,
 				4FFC4B6A2A07EA9A00D68BC7 /* DrawerViewController.swift */,
+				4FB9ABDD2A16928900F28030 /* HomeHealthyViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				4F74F5E929CDDEE600428EAC /* Food.swift in Sources */,
 				4F93335229DDD45E00B697BB /* FoodViewController.swift in Sources */,
 				4F9E046929C24CF800AC56DC /* AppDelegate.swift in Sources */,
+				4FB9ABDE2A16928900F28030 /* HomeHealthyViewController.swift in Sources */,
 				4F26A17929D2582C00E1FF27 /* CategoryCollectionViewCell.swift in Sources */,
 				4F5C1F6B2A102F9600B9E04D /* MyRecetteViewController.swift in Sources */,
 				4F93DDA029DE480600E4E4DD /* IngredientTableViewCell.swift in Sources */,

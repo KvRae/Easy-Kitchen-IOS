@@ -19,7 +19,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     var categories: [Category] = []
     var categoriesImages: [URL] = []
     var recettes: [Recette] = []
-
+    
     @IBOutlet weak var expertLabel: UILabel!
     
     @IBOutlet weak var categoryLabel: UILabel!
@@ -36,13 +36,13 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     @IBOutlet weak var recetteCollectionView: UICollectionView!
     
     var drawerViewController: DrawerViewController?
-
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == foodCollectionView ){
             return min(5,foodFilter.count)
         } else if ( collectionView == categoryCollectionview) {
-
+            
             return categories.count
             
         }else if (collectionView == recetteCollectionView){
@@ -101,21 +101,21 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             
             let cell=collectionView.dequeueReusableCell(withReuseIdentifier:"recetteCell",for:indexPath) as! RecetteCollectionViewCell
             
-
+            
             let recette = self.recettes[indexPath.row]
-
+            
             cell.recetteImageView.kf.setImage(with: URL(string: recette.image))
-                cell.recetteLabel.text = recette.name
-                cell.recetteImageView.layer.cornerRadius = 20.0
-                cell.recetteImageView.contentMode = .scaleAspectFill
-                cell.recetteImageView.clipsToBounds = true
-                cell.blackScreen.layer.cornerRadius = 20.0
-
+            cell.recetteLabel.text = recette.name
+            cell.recetteImageView.layer.cornerRadius = 20.0
+            cell.recetteImageView.contentMode = .scaleAspectFill
+            cell.recetteImageView.clipsToBounds = true
+            cell.blackScreen.layer.cornerRadius = 20.0
+            
             let total = recette.likes - recette.dislikes
             
             cell.recetteLikeButton.setTitle("\(total)",for: .normal)
             cell.recetteLikeButton.titleLabel?.font = UIFont.systemFont(ofSize: 1)
-
+            
             return cell
         }
         return UICollectionViewCell()
@@ -153,7 +153,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             
             foodByCategoryViewController.categoryDetail = categoryDetail
             foodByCategoryViewController.foodFilter = foods.filter { $0.strCategory == categoryDetail.strCategory }
-
+            
             
             // Push the detail view controller onto the navigation stack
             navigationController?.pushViewController(foodByCategoryViewController, animated: true)
@@ -176,27 +176,31 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
     
     let defaults = UserDefaults.standard
     
-    @IBOutlet weak var gradientBIO: UIView!
     
-    @IBOutlet weak var whiteBoard: UIView!
+    @IBAction func healthyModeTapped(_ sender: Any) {
+        
+        UIView.transition(with: UIApplication.shared.windows.first!,
+                          duration: 0.5,
+                          options: .transitionFlipFromLeft,
+                          animations: {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "homeHealthyVC") as! HomeHealthyViewController
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        },
+                          completion: nil)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        whiteBoard.isHidden = true
-        gradientBIO.isHidden = true
+        bioButton.isSelected = false
 
+        
+        
+        
+        
         self.foodCollectionView.backgroundColor = UIColor.clear
         self.categoryCollectionview.backgroundColor = UIColor.clear
         self.recetteCollectionView.backgroundColor = UIColor.clear
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.green.cgColor, UIColor.blue.cgColor]  // Replace with your desired start and end colors
-        gradientLayer.startPoint = CGPoint(x: 1, y: 0)  // Adjust the start point as needed
-        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-        
-        gradientBIO.layer.addSublayer(gradientLayer)
         
         
         navigationItem.hidesBackButton = true
@@ -204,10 +208,10 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         let chefHatCheck = defaults.object(forKey: "chefHat") as? Bool
         if (chefHatCheck == true){
             chefHat.isHidden = false
-
+            
         }else{
             chefHat.isHidden = true
-
+            
         }
         scheduleNotification()
         let token = defaults.object(forKey: "token") as? String
@@ -221,7 +225,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             avatarIV.kf.setImage(with: URL(string: image))
             
             
-                
+            
         } else {
             // handle decoding error
         }
@@ -235,14 +239,14 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
                 print("Error: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
                 print("Error: invalid response")
                 self.recetteLabel.isHidden = false
                 return
             }
-
+            
             guard let data = data else {
                 print("Error: missing data")
                 return
@@ -251,7 +255,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
                 let decoder = JSONDecoder()
                 
                 self.recettes = try decoder.decode([Recette].self, from: data)
-                    
+                
                 print (self.recettes.count)
                 self.recettes.sort { (recette1, recette2) -> Bool in
                     let total1 = recette1.likes - recette1.dislikes
@@ -264,23 +268,21 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
                 DispatchQueue.main.async {
                     self.recetteCollectionView.reloadData()
                 }
-
+                
             } catch {
                 print("Error decoding JSON: \(error.localizedDescription)")
             }
-
+            
             // Process the data here
-
+            
         }
-
+        
         taskFood.resume()
-
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bioButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-
         
         avatarIV.layer.cornerRadius = avatarIV.frame.size.width / 2
         avatarIV.clipsToBounds = true
@@ -377,7 +379,7 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         taskCat.resume()
     }
     
-
+    
     
     
     func getMeal(for date: Date) -> String {
@@ -407,22 +409,22 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
         return true
     }
     
-
+    
     func scheduleNotification() {
         // Create a UNMutableNotificationContent object
         let content = UNMutableNotificationContent()
         content.title = "Welcome"
         content.body = "To the summoner's rift"
-
+        
         // Configure the trigger for the notification
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
-
+        
         // Create a UNNotificationRequest object with the content and trigger
         let request = UNNotificationRequest(identifier: "myNotification", content: content, trigger: trigger)
-
+        
         // Get the notification center
         let center = UNUserNotificationCenter.current()
-
+        
         // Request authorization to display notifications (if needed)
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if error != nil {
@@ -441,19 +443,10 @@ class HomeViewController: UIViewController,UICollectionViewDelegate,UICollection
             }
         }
     }
-
     
-    @objc func buttonTapped(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-
-        if sender.isSelected {
-            whiteBoard.isHidden = false
-            gradientBIO.isHidden = false
-            
-        } else {
-            whiteBoard.isHidden = true
-            gradientBIO.isHidden = true
-        }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
     }
     
 }

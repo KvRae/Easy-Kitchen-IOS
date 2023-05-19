@@ -10,6 +10,79 @@ import JWTDecode
 
 class RecetteDetailViewController: UIViewController,UITableViewDataSource, UITableViewDelegate{
     
+    
+    
+    
+    @IBAction func reportAction(_ sender: UIButton) {
+        
+        let defaults = UserDefaults.standard
+        print("clicked")
+        
+        let userId = defaults.object(forKey: "userId") as! String
+        
+        // Set the URL for the POST request
+        let url = URL(string: "http://localhost:3000/api/reports")!
+
+        // Create the request object
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        // Set the request body
+        let params = ["userId": userId, "recetteId": recetteDetail?._id, "recetteName":recetteDetail?.name]
+                    
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params)
+
+        // Set the request headers
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        // Create a URLSession instance
+        let session = URLSession.shared
+        
+    
+        // Create the data task
+        let task = session.dataTask(with: request) { (data, response, error) in
+            // Handle the response
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data returned from server")
+                return
+            }
+            
+            do {
+
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]{
+                    DispatchQueue.main.async {
+                        self.showReportAlert()
+                    }
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+            }
+        }
+        // Start the data task
+        task.resume()
+    }
+    
+    func showReportAlert() {
+            let alertController = UIAlertController(title: "Report Recipe", message: "Are you sure you want to report this recipe?", preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let reportAction = UIAlertAction(title: "Report", style: .destructive) { _ in
+                self.showAlert(title: "Success", message: "report submited successfully")
+            }
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(reportAction)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingredients.count
     }

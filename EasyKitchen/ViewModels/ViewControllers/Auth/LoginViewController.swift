@@ -24,18 +24,72 @@ class LoginViewController: UIViewController {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             guard error == nil else { return }
          
-            let defaults = UserDefaults.standard
-            let user = signInResult?.user.profile
-            defaults.set(user?.name, forKey: "user")
-            let msg = user!.name
+            let userGoogle = signInResult?.user.profile
+            let name = userGoogle?.name ?? ""
+            let email = userGoogle?.email ?? ""
+            let imageUrl = userGoogle?.imageURL(withDimension: 100)?.absoluteString ?? ""
+
+            // Set the URL for the POST request
+            let url = URL(string: "http://127.0.0.1:3000/api/loginGoogle")!
+
+            // Create the request object
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
             
-            self.showAlert(title: "Welcome", message: msg)
+            // Set the request body
+            let params = ["name": name, "email": email, "imageUrl": imageUrl]
+            print(params)
+            request.httpBody = try? JSONSerialization.data(withJSONObject: params)
+
+            // Set the request headers
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            // Create a URLSession instance
+            let session = URLSession.shared
+
+            // Create the data task
+            let task = session.dataTask(with: request) { (data, response, error) in
+                // Handle the response
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let data = data else {
+                    print("No data returned from server")
+                    return
+                }
+                
+                do {
+                    let defaults = UserDefaults.standard
+                    print(data)
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let user = json["user"] as? [String: Any],
+                       let username = user["username"] as? String {
+                        defaults.set(json["token"], forKey: "token")
+                        defaults.set(json["user"], forKey: "user")
+                        let userId = user["_id"]
+                        defaults.set(userId!, forKey: "userId")
+                        DispatchQueue.main.async {
+                            self.showAlertNavigate(title: "Success", message: "Welcome \(username)")
+                        }
+                        
+                    } else {
+                        print("Invalid JSON format")
+                    }
+                } catch {
+                    print("Error parsing JSON: \(error.localizedDescription)")
+                }
+            }
+
+            // Start the data task
+            task.resume()
             
-            
-             
             // If sign in succeeded, display the app's main content View.
-          }
+        }
     }
+    
+    
     @IBAction func loginButtonTapped(_ sender: Any) {
         
             // Get the values from the text fields
@@ -82,9 +136,10 @@ class LoginViewController: UIViewController {
                         return
                     }
                     
+                    
                     do {
                         let defaults = UserDefaults.standard
-
+                        print(data)
                         if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                            let user = json["user"] as? [String: Any],
                            let username = user["username"] as? String {

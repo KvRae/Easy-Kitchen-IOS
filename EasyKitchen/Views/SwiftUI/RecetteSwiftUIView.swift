@@ -22,6 +22,7 @@ struct RecetteView: View {
     @State private var steps = [String]()
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
+    let defaults = UserDefaults.standard
     var body: some View {
         NavigationView {
             VStack {
@@ -98,12 +99,19 @@ struct RecetteView: View {
                             ingredients.append(Ing(ingredient: "", mesure: ""))
                         }) {
                             Label("Add Ingredients/Mesures", systemImage: "plus")
+                            
                         }
                     }
                 }
                 
                 Button(action: {
-                    createRecipe(name: name,description: description, image: image, isBio: isBio, duration: duration, person: person, difficulty: difficulty, ingredients: ingredients)
+                    createRecipe(name: name,description: description, image: image, isBio: isBio, duration: duration, person: person, difficulty: difficulty, ingredients: ingredients, showAlert: showAlert)
+                    
+                    let userId = defaults.string(forKey: "id") ?? "N/A"
+                    
+                    sendImageWithPutRequest(image: UIImage(data: selectedImageData!)!, id: userId)
+                    
+                    
                 }) {
                     Image(systemName: "plus")
                     Text("Create Recipe")
@@ -113,6 +121,9 @@ struct RecetteView: View {
                 .foregroundColor(Color("orangeKitchen"))
                 .cornerRadius(8)
                 .padding(.vertical, 20)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Recipe Added"), message: Text("Your recipe has been successfully added."), dismissButton: .default(Text("OK")))
+                }
             }
             .navigationTitle("Create Recipe")
         }
@@ -128,7 +139,7 @@ struct RecetteView: View {
      }
      }
      
-func createRecipe(name: String,description: String, image: String, isBio: Bool, duration: String, person: String, difficulty: String, ingredients: [Ing]) {
+func createRecipe(name: String,description: String, image: String, isBio: Bool, duration: String, person: String, difficulty: String, ingredients: [Ing], showAlert : Bool) {
 
     // Create the request URL
     let urlString = "http://localhost:3000/api/recettes/"
@@ -199,10 +210,120 @@ func createRecipe(name: String,description: String, image: String, isBio: Bool, 
     }.resume()
 }
 
-func uploadImage()
-{
-    
-}
+func sendImageWithPutRequest(image: UIImage,id : String) {
+
+        guard let url = URL(string: "http://localhost:3000/api/users/upload/\("6390d20d7f807d0e685ac291")") else {
+
+            return
+
+        }
+
+        
+
+        // Create the URLRequest with the PUT HTTP method
+
+        var request = URLRequest(url: url)
+
+        request.httpMethod = "PUT"
+
+        
+
+        // Generate a boundary string for the multipart form data
+
+        let boundary = UUID().uuidString
+
+        
+
+        // Set the Content-Type header to multipart/form-data with the boundary
+
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        
+
+        // Create the data representation of the image
+
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+
+            return
+
+        }
+
+        
+
+        // Create the multipart/form-data body
+
+        var body = Data()
+
+        
+
+        // Append the image data to the body
+
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+
+        body.append("Content-Disposition: form-data; name=\"image\"; filename=\"image.jpg\"\r\n".data(using: .utf8)!)
+
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+
+        body.append(imageData)
+
+        body.append("\r\n".data(using: .utf8)!)
+
+        
+
+        // Append any additional fields to the body if needed
+
+        // For example, to include a title field:
+
+        // body.append("--\(boundary)\r\n".data(using: .utf8)!)
+
+        // body.append("Content-Disposition: form-data; name=\"title\"\r\n\r\n".data(using: .utf8)!)
+
+        // body.append("My Image Title\r\n".data(using: .utf8)!)
+
+        
+
+        // Append the closing boundary
+
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        
+
+        // Set the body of the request
+
+        request.httpBody = body
+
+        
+
+        // Create a URLSessionDataTask and send the request
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            if let error = error {
+
+                print("Error: \(error)")
+
+                return
+
+            }
+
+            
+
+            // Handle the response data if needed
+
+            if let data = data {
+
+                let responseString = String(data: data, encoding: .utf8)
+
+                print("Response: \(responseString ?? "")")
+
+            }
+
+        }
+
+        task.resume()
+
+    }
+
 
 struct Ing {
     var ingredient : String
